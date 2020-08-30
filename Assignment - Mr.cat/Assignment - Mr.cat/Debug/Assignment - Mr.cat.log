@@ -1,0 +1,22 @@
+﻿  Source.cpp
+C:\Users\User\source\repos\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(314,29): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\User\source\repos\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(315,29): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\User\source\repos\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(316,15): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\User\source\repos\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(318,29): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\User\source\repos\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(319,29): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\User\source\repos\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(320,15): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\User\source\repos\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(452,29): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\source\repos\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(453,24): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\source\repos\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(459,31): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\source\repos\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(461,17): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\User\source\repos\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(466,30): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\source\repos\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(469,17): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\User\source\repos\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(474,32): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\source\repos\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(483,24): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\source\repos\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(491,24): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\source\repos\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(499,24): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\source\repos\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(507,24): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\source\repos\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(508,32): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\source\repos\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(521,28): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\User\source\repos\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(551,24): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+  Assignment - Mr.cat.vcxproj -> C:\Users\User\source\repos\Assignment - Mr.cat\Debug\Assignment - Mr.cat.exe
