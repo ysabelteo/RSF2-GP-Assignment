@@ -530,8 +530,6 @@ void drawBody() {
 	drawCube(0.75);
 	glPopMatrix();
 
-
-	//drawCuboid2f(3, 0.75, 0.15);
 	glPopMatrix();
 }
 void drawLeg() {
@@ -599,7 +597,7 @@ void display()
 
 	glMatrixMode(GL_MODELVIEW);
 
-	glRotatef(0.1, 1, 1, 1);
+	//glRotatef(0.1, 1, 1, 1);
 
 	//glLoadIdentity();
 	//glTranslatef(0.0, 0.0, tz);
