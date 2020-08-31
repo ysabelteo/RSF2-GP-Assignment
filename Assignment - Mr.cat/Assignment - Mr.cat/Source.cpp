@@ -309,7 +309,7 @@ void drawSphereWithoutGlu(float size) {
 	int sliceNo = 30, stackNo = 30;
 
 	for (sliceA = 0.0; sliceA < 2 * PI; sliceA += PI / sliceNo) {
-		glBegin(GL_LINE_LOOP);
+		glBegin(GL_TRIANGLE_FAN);
 		for (stackA = 0; stackA < 2 * PI; stackA += PI / stackNo) {
 			x = radius * cos(stackA) * sin(sliceA);
 			y = radius * sin(stackA) * sin(sliceA);
@@ -340,16 +340,15 @@ void drawCylinder(float size, float height) {
 	gluDeleteQuadric(cylinder);
 }
 void drawPyramid(float size) {
-	glBegin(GL_QUADS);
+	glBegin(GL_LINE_LOOP);
 	//Face1 : Bottom
-	glColor3f(1, 1, 1);
 	glVertex3f(0, 0, 0);
 	glVertex3f(size, 0, 0);
 	glVertex3f(size, 0, size);
 	glVertex3f(0, 0, size);
 	glEnd();
 
-	glBegin(GL_TRIANGLES);
+	glBegin(GL_LINE_LOOP);
 	glVertex3f(0, 0, 0);
 	glVertex3f(size, 0, 0);
 	glVertex3f(size, size, size);
@@ -447,32 +446,30 @@ void drawTetrahedrom(float size) {
 
 }
 void drawHead() {
+	//head
 	glPushMatrix();
 	glColor3f(1.0, 1.0, 1.0);
-	drawSphereWithoutGlu(0.5);
+	drawSphereWithoutGlu(1.0);
 	glPopMatrix();
 
-	glPushMatrix();
-	glTranslatef(0.0, -0.2, 0.0);
-	glScalef(1.0, 0.7, 1.0);
-	drawSphereWithoutGlu(0.5);
-	glPopMatrix();
-
+	
 	//left ear
 	glPushMatrix();
 	glColor3f(0.0, 0.0, 1.0);
-	glTranslatef(-0.40, 0.15, 0.0);
-	glRotatef(45, 0.0, 0.0, 1.0);
-	drawPyramid(0.3);
+	glTranslatef(-0.9, 0.2, 0.0);
+	glRotatef(20, 0.0, 1.0, 0.0);
+	glRotatef(60, 0.0, 0.0, 1.0);
+	drawPyramid(0.75);
 	glPopMatrix();
 
 	//right ear
 	glPushMatrix();
 	glColor3f(0.0, 0.0, 1.0);
-	glTranslatef(0.40, 0.15, 0.2);
-	glRotatef(180, 0.0, 1.0, 0.0);
-	glRotatef(45, 0.0, 0.0, 1.0);
-	drawPyramid(0.3);
+	glRotatef(-60, 0.0, 0.0, 1.0);
+	glTranslatef(0.9, 0.2, 0.0);
+	glRotatef(20, 0.0, 1.0, 0.0);
+	glRotatef(60, 0.0, 0.0, 1.0);
+	drawPyramid(0.75);
 	glPopMatrix();
 
 	//neck
@@ -481,10 +478,33 @@ void drawHead() {
 	drawCuboid3f(0.5, 0.5);
 	glPopMatrix();
 
-	//left eyes
+	//eyes
+	glPushMatrix();
+	glColor3f(0.0, 0.0, 0.0);
+	glBegin(GL_TRIANGLES);
+		glVertex3f(-1.0, 0.3, 1.0);
+		glVertex3f(0.0, 0.6, 1.0);
+		glVertex3f(1.0, 0.3, 1.0);
+	glEnd();
+
+	glBegin(GL_QUADS);
+	glVertex3f(-1.0, 0.3, 1.0);
+	glVertex3f(1.0, 0.3, 1.0);
+	glVertex3f(1.0, 0.0, 1.0);
+	glVertex3f(-1.0, 0.0, 1.0);
+	glEnd();
+
+	glBegin(GL_TRIANGLES);
+		glVertex3f(-1.0, 0.0, 1.0);
+		glVertex3f(0.0, -0.3, 1.0);
+		glVertex3f(1.0, 0.0, 1.0);
+	glEnd();
+
+	glPopMatrix();
+	/*//left eyes
 	glPushMatrix();
 	glColor3f(1.0, 0.0, 0.0);
-	glTranslatef(-0.25, 0.0, 0.5);
+	glTranslatef(-0.4, 0.0, 1.0);
 	glScalef(0.2, 0.1, 0.0);
 	drawSphere(0.7);
 	glPopMatrix();
@@ -492,10 +512,12 @@ void drawHead() {
 	//right eyes
 	glPushMatrix();
 	glColor3f(1.0, 0.0, 0.0);
-	glTranslatef(0.2, 0.0, 0.5);
-	glScalef(0.25, 0.1, 0.0);
+	glTranslatef(0.2, 0.0, 1.0);
+	glScalef(0.2, 0.1, 0.0);
 	drawSphere(0.7);
-	glPopMatrix();
+	glPopMatrix();*/
+
+
 }
 void drawBody() {
 	//body
@@ -591,39 +613,44 @@ void projection() {
 
 void display()
 {
-
 	glEnable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.5, 0.5, 0.5, 0);
 	projection();
+	//glLoadIdentity();
 
 	glMatrixMode(GL_MODELVIEW);
 
-	glRotatef(0.1, 1, 1, 1);
-
-	//glLoadIdentity();
-	//glTranslatef(0.0, 0.0, tz);
+	glPushMatrix();
+	glTranslatef(0.0, 2.0, 0.75);
+	//glRotatef(0.01, 1, 1, 1);
+	drawHead();
+	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(2, 1, 0.0);
-	
+	glTranslatef(0.0, -1.5, 0.0);
+	glPushMatrix();
+
+	glTranslatef(2, 1, 0.5);
+
 	glColor3f(1, 0, 1);
 	drawHand();
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(-1.5, 1, 0.0);
+	glTranslatef(-1.5, 1, 0.5);
 	glColor3f(1, 0, 0);
 	drawHand();
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(0, 0, 0);
 	glColor3f(1, 1, 0);
 	drawBody();
 	glPopMatrix();
-
-	//drawLeg();
+	glPopMatrix();
+	/*glPushMatrix();
+	drawLeg();
+	glPopMatrix();*/
 }
 //--------------------------------------------------------------------
 
