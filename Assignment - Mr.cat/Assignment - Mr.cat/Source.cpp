@@ -340,7 +340,7 @@ void drawCylinder(float size, float height) {
 	gluDeleteQuadric(cylinder);
 }
 void drawPyramid(float size) {
-	glBegin(GL_LINE_LOOP);
+	glBegin(GL_QUADS);
 	//Face1 : Bottom
 	glVertex3f(0, 0, 0);
 	glVertex3f(size, 0, 0);
@@ -348,7 +348,7 @@ void drawPyramid(float size) {
 	glVertex3f(0, 0, size);
 	glEnd();
 
-	glBegin(GL_LINE_LOOP);
+	glBegin(GL_TRIANGLES);
 	glVertex3f(0, 0, 0);
 	glVertex3f(size, 0, 0);
 	glVertex3f(size, size, size);
@@ -453,23 +453,22 @@ void drawHead() {
 	glPopMatrix();
 
 	
+	glPushMatrix();
+	glTranslatef(0, 0.8, -0.6);
 	//left ear
 	glPushMatrix();
-	glColor3f(0.0, 0.0, 1.0);
-	glTranslatef(-0.9, 0.2, 0.0);
-	glRotatef(20, 0.0, 1.0, 0.0);
-	glRotatef(60, 0.0, 0.0, 1.0);
-	drawPyramid(0.75);
+	glRotatef(30, 0, 0, 1);
+	glRotatef(180, 1, 0, 0);
+	drawPyramid(-0.7);
 	glPopMatrix();
+
 
 	//right ear
 	glPushMatrix();
-	glColor3f(0.0, 0.0, 1.0);
-	glRotatef(-60, 0.0, 0.0, 1.0);
-	glTranslatef(0.9, 0.2, 0.0);
-	glRotatef(20, 0.0, 1.0, 0.0);
-	glRotatef(60, 0.0, 0.0, 1.0);
-	drawPyramid(0.75);
+	glRotatef(-30, 0, 0, 1);
+	drawPyramid(0.7);
+	glPopMatrix();
+
 	glPopMatrix();
 
 	//neck
@@ -501,21 +500,6 @@ void drawHead() {
 	glEnd();
 
 	glPopMatrix();
-	/*//left eyes
-	glPushMatrix();
-	glColor3f(1.0, 0.0, 0.0);
-	glTranslatef(-0.4, 0.0, 1.0);
-	glScalef(0.2, 0.1, 0.0);
-	drawSphere(0.7);
-	glPopMatrix();
-
-	//right eyes
-	glPushMatrix();
-	glColor3f(1.0, 0.0, 0.0);
-	glTranslatef(0.2, 0.0, 1.0);
-	glScalef(0.2, 0.1, 0.0);
-	drawSphere(0.7);
-	glPopMatrix();*/
 
 
 }
