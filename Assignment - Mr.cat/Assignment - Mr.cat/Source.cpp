@@ -412,15 +412,15 @@ void drawHand() {
 	//Upper Arm
 	glPushMatrix();
 	glRotatef(90, 0, 0, 1);
-	drawCuboid3f(0.5, 3);
+	drawCuboid3f(0.5, 4);
 	glPopMatrix();
 
 	//Lower Arm
 	glPushMatrix();
 	glRotatef(-moveHand, 1, 0, 0);
-	glTranslatef(0, -1.5, 0);
+	glTranslatef(0, -2.0, 0);
 	glRotatef(90, 0, 0, 1);
-	drawCuboid3f(0.5, 3);
+	drawCuboid3f(0.5, 5);
 	glPopMatrix();
 }
 void drawTetrahedrom(float size) {
@@ -449,7 +449,7 @@ void drawHead() {
 	//head
 	glPushMatrix();
 	glColor3f(1.0, 1.0, 1.0);
-	drawSphereWithoutGlu(1.0);
+	drawSphereWithoutGlu(0.75);
 	glPopMatrix();
 
 	
@@ -459,26 +459,28 @@ void drawHead() {
 	glPushMatrix();
 	glRotatef(30, 0, 0, 1);
 	glRotatef(180, 1, 0, 0);
-	drawPyramid(-0.7);
+	drawPyramid(-0.5);
 	glPopMatrix();
 
 
 	//right ear
 	glPushMatrix();
 	glRotatef(-30, 0, 0, 1);
-	drawPyramid(0.7);
+	drawPyramid(0.5);
 	glPopMatrix();
 
 	glPopMatrix();
 
 	//neck
 	glPushMatrix();
-	glTranslatef(-0.13, -0.8, -0.2);
-	drawCuboid3f(0.5, 0.5);
+	glTranslatef(0.0, -0.65, 0.0);
+	glRotatef(90, 1.0, 0.0, 0.0);
+	drawCylinder(0.2, 0.3);
 	glPopMatrix();
 
 	//eyes
 	glPushMatrix();
+	glTranslatef(0.0, 0.0, -0.2);
 	glColor3f(0.0, 0.0, 0.0);
 	glBegin(GL_TRIANGLES);
 		glVertex3f(-1.0, 0.3, 1.0);
@@ -509,12 +511,17 @@ void drawBody() {
 
 	glPushMatrix();
 	glTranslatef(-1.5, 1.125, 0);
-	drawCube(1.5);
+	drawCube(1.0);
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(0, 1.125, 0);
-	drawCube(1.5);
+	glTranslatef(-0.5, 1.125, 0);
+	drawCube(1.0);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.5, 1.125, 0);
+	drawCube(1.0);
 	glPopMatrix();
 
 	glPushMatrix();
@@ -540,43 +547,61 @@ void drawBody() {
 	//drawCuboid2f(3, 0.75, 0.15);
 	glPopMatrix();
 }
+void drawAss() {
+	//ass
+	glPushMatrix();
+	glTranslatef(0.0, 1.0, -0.3);
+	glRotatef(90, 1.0, 0.0, 0.0);
+	drawCylinder(0.2, 1.0);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-0.5, -1.0, -0.8);
+	drawCube(1.0);
+	glPopMatrix();
+}
 void drawLeg() {
 
 	//upper
-	glLoadIdentity();
 	glPushMatrix();
-	glScalef(1.0, 1.0, 0.2);
-	glTranslatef(0.0, 1.0, 0.0);
+	//glScalef(1.0, 1.0, 0.2);
+	glTranslatef(0.0, 0.5, 0.0);
 	glRotatef(180, 1.0, 1.0, 0.0);
-	drawCuboid(1.0);
+	drawCuboid3f(0.5, 2);
 	glPopMatrix();
 
 	//joint
 	glPushMatrix();
-	glScalef(1.0, 1.0, 0.2);
-	glTranslatef(0.5, 0.5, 0.0);
-	drawSphereWithoutGlu(0.5);
+	//glScalef(1.0, 1.0, 0.2);
+	glTranslatef(0.25, 0.15, -0.25);
+	drawSphereWithoutGlu(0.3);
 	glPopMatrix();
 
 	//lower
 	glPushMatrix();
-	glLoadIdentity();
-	glScalef(1.0, 1.0, 0.2);
-	glTranslatef(0.0, -2.0, 0.0);
+	//glScalef(1.0, 1.0, 0.2);
+	glTranslatef(0.0, -1.7, 0.0);
 	glRotatef(180, 1.0, 1.0, 0.0);
-	drawCuboid(1.0);
+	drawCuboid3f(0.5, 3);
 	glPopMatrix();
 
-	//jiao ban
+	//sole
 	glPushMatrix();
-	glScalef(1.5, 0.5, 0.2);
-	glTranslatef(-0.18, -4.0, -1.0);
-	drawCube(1.0);
+	//glScalef(1.5, 0.5, 0.2);
+	glTranslatef(-0.1, -2.0, -0.58);
+	drawCube(0.7);
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(0.0, -3.0, 2.0);
-	drawCube(1.0);
+	glTranslatef(0.7, -2.3, 0.15);
+	glRotatef(90, 0.0, 0.0, 1.0);
+	drawCuboid2f(0.8, 0.5, 1.0);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.7, -2.3, -1.2);
+	glRotatef(90, 0.0, 0.0, 1.0);
+	drawCuboid2f(0.8, 0.5, 0.8);
 	glPopMatrix();
 
 }
@@ -606,23 +631,23 @@ void display()
 	glMatrixMode(GL_MODELVIEW);
 
 	glPushMatrix();
-	glTranslatef(0.0, 2.0, 0.75);
+	glTranslatef(0.0, 3.5, -0.2);
 	//glRotatef(0.01, 1, 1, 1);
 	drawHead();
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(0.0, -1.5, 0.0);
+	glTranslatef(0.0, 0.45, -0.7);
 	glPushMatrix();
 
-	glTranslatef(2, 1, 0.5);
+	glTranslatef(2, 0.5, 0.5);
 
 	glColor3f(1, 0, 1);
 	drawHand();
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(-1.5, 1, 0.5);
+	glTranslatef(-1.5, 0.5, 0.5);
 	glColor3f(1, 0, 0);
 	drawHand();
 	glPopMatrix();
@@ -632,9 +657,22 @@ void display()
 	drawBody();
 	glPopMatrix();
 	glPopMatrix();
-	/*glPushMatrix();
+
+	glPushMatrix();
+	drawAss();
+	glPopMatrix();
+
+	//left leg
+	glPushMatrix();
+	glTranslatef(-1.0, -2.5, 0.0);
 	drawLeg();
-	glPopMatrix();*/
+	glPopMatrix();
+
+	//right leg
+	glPushMatrix();
+	glTranslatef(0.5, -2.5, 0.0);
+	drawLeg();
+	glPopMatrix();
 }
 //--------------------------------------------------------------------
 
