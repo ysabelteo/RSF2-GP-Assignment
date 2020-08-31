@@ -418,7 +418,7 @@ void drawHand() {
 
 	//Lower Arm
 	glPushMatrix();
-	glRotatef(moveHand, 0, 0, 1);
+	glRotatef(-moveHand, 1, 0, 0);
 	glTranslatef(0, -1.5, 0);
 	glRotatef(90, 0, 0, 1);
 	drawCuboid3f(0.5, 3);
