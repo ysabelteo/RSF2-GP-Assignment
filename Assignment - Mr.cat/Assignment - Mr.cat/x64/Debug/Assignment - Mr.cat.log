@@ -1,23 +1,35 @@
 ﻿  Source.cpp
-C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(314,29): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(315,29): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(316,15): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(318,29): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(319,29): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(320,15): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(320,29): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(321,29): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(322,15): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(324,29): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(325,29): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(326,15): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(441,36): warning C4305: '+=': truncation from 'double' to 'float'
 C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(457,27): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(462,18): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(469,17): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(476,32): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(484,28): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(485,27): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(486,27): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(460,31): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(469,30): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(478,30): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(480,23): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(485,29): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(488,28): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(489,27): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
 C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(490,27): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(491,26): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(498,28): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(548,24): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(556,24): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(564,24): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(572,24): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(573,32): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(494,27): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(495,26): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(502,28): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(555,29): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(557,23): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(561,31): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(578,32): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(579,26): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(585,29): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(593,32): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(594,14): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(598,30): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(600,28): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(604,30): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(606,28): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(636,29): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\Assignment - Mr.cat\Source.cpp(642,30): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
   Assignment - Mr.cat.vcxproj -> C:\Users\User\Documents\GitHub\RSF2-GP-Assignment\Assignment - Mr.cat\x64\Debug\Assignment - Mr.cat.exe

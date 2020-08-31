@@ -16,6 +16,8 @@ float Ry = 0, rSpeed = 1.0;
 
 float moveHand = 0;
 
+bool isFired = false;
+float fireSpeed = 1;
 LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
@@ -74,6 +76,10 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			if (moveHand > 0) {
 				moveHand -= 1;
 			}
+		}
+		else if (wParam == 0x46) {
+			isFired = !isFired;
+			fireSpeed = 0;
 		}
 
 		break;
@@ -412,39 +418,33 @@ void drawHand() {
 	//Upper Arm
 	glPushMatrix();
 	glRotatef(90, 0, 0, 1);
-	drawCuboid3f(0.5, 4);
+	drawCuboid3f(0.5, 3);
 	glPopMatrix();
 
 	//Lower Arm
 	glPushMatrix();
 	glRotatef(-moveHand, 1, 0, 0);
-	glTranslatef(0, -2.0, 0);
+	glTranslatef(0, -2.5, 0);
 	glRotatef(90, 0, 0, 1);
 	drawCuboid3f(0.5, 5);
 	glPopMatrix();
+
+	glPushMatrix();
+	glRotatef(-moveHand, 1, 0, 0);
+	glTranslatef(-0.25, -0.50, 0.25);
+	glRotatef(90, 1, 0, 0);
+	drawCylinder(0.5, 2.0);
+	glPopMatrix();
+
+	if (isFired && moveHand>70) {
+
+		glTranslatef(0, 0, fireSpeed+=0.1);
+		glTranslatef(-0.25, 0, 0);
+		glColor3f(1, 1, 1);
+		drawSphere(0.25);
+	}
 }
-void drawTetrahedrom(float size) {
-	glBegin(GL_LINE_LOOP);
 
-	glVertex3f(0, 0, 0);
-	glVertex3f(0, size, 0);
-	glVertex3f(0, size / 2, size);
-
-	glVertex3f(0, size / 2, size);
-	glVertex3f(0, size, 0);
-	glVertex3f(size, size, 0);
-
-	glVertex3f(size, size, 0);
-	glVertex3f(0, size / 2, size);
-	glVertex3f(0, 0, 0);
-
-	glVertex3f(0, 0, 0);
-	glVertex3f(size, size, 0);
-	glVertex3f(0, size, 0);
-
-	glEnd();
-
-}
 void drawHead() {
 	//head
 	glPushMatrix();
@@ -457,6 +457,7 @@ void drawHead() {
 	glTranslatef(0, 0.8, -0.6);
 	//left ear
 	glPushMatrix();
+	glTranslatef(-0.2, -0.15, 0.3);
 	glRotatef(30, 0, 0, 1);
 	glRotatef(180, 1, 0, 0);
 	drawPyramid(-0.5);
@@ -465,6 +466,7 @@ void drawHead() {
 
 	//right ear
 	glPushMatrix();
+	glTranslatef(0.2, -0.15, 0.3);
 	glRotatef(-30, 0, 0, 1);
 	drawPyramid(0.5);
 	glPopMatrix();
