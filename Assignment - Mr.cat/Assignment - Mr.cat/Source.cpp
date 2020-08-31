@@ -500,7 +500,38 @@ void drawHead() {
 void drawBody() {
 	//body
 	glPushMatrix();
-	drawCuboid2f(3, 0.75, 0.15);
+
+	glPushMatrix();
+	glTranslatef(-1.5, 1.125, 0);
+	drawCube(1.5);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0, 1.125, 0);
+	drawCube(1.5);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-1.125, 0.75, 0);
+	drawCube(1.125);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0, 0.75, 0);
+	drawCube(1.125);
+	glPopMatrix();
+
+	glPushMatrix();
+	drawCube(0.75);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-0.75, 0, 0);
+	drawCube(0.75);
+	glPopMatrix();
+
+
+	//drawCuboid2f(3, 0.75, 0.15);
 	glPopMatrix();
 }
 void drawLeg() {
@@ -574,25 +605,25 @@ void display()
 	//glTranslatef(0.0, 0.0, tz);
 
 	glPushMatrix();
-	glTranslatef(1.625, 0.0, 0.0);
+	glTranslatef(2, 1, 0.0);
 	
 	glColor3f(1, 0, 1);
 	drawHand();
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(-1.125, 0.0, 0.0);
+	glTranslatef(-1.5, 1, 0.0);
 	glColor3f(1, 0, 0);
 	drawHand();
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(-1.125, -1.5, 0);
+	glTranslatef(0, 0, 0);
 	glColor3f(1, 1, 0);
 	drawBody();
 	glPopMatrix();
 
-	drawLeg();
+	//drawLeg();
 }
 //--------------------------------------------------------------------
 
