@@ -345,6 +345,7 @@ void drawCylinder(float size, float height) {
 	gluCylinder(cylinder, size, size, height, 10, 9);
 	gluDeleteQuadric(cylinder);
 }
+
 void drawPyramid(float size) {
 	glBegin(GL_QUADS);
 	//Face1 : Bottom
@@ -429,6 +430,7 @@ void drawHand() {
 	drawCuboid3f(0.5, 5);
 	glPopMatrix();
 
+	//Fire gun
 	glPushMatrix();
 	glRotatef(-moveHand, 1, 0, 0);
 	glTranslatef(-0.25, -0.50, 0.25);
@@ -543,9 +545,7 @@ void drawBody() {
 	glTranslatef(-0.75, 0, 0);
 	drawCube(0.75);
 	glPopMatrix();
-
-
-	//drawCuboid2f(3, 0.75, 0.15);
+	
 	glPopMatrix();
 }
 void drawAss() {
@@ -630,36 +630,51 @@ void drawSword() {
 	glPushMatrix();
 	glTranslatef(0, 2, 0);
 	glRotatef(-90, 1, 0, 0);
+	glColor3f(1, 1, 1);
 	drawCylinder(0.125, 0.5);
 	glPopMatrix();
 	
 	glPushMatrix();
 	glBegin(GL_QUADS);
-	glVertex3f(0.4, 2, 0.14);
-	glVertex3f(0.4, 2, -0.14);
+	glVertex3f(0.4, 1.9, 0.14);
+	glVertex3f(0.4, 1.9, -0.14);
+	glVertex3f(-0.4, 1.9, -0.14);
+	glVertex3f(-0.4, 1.9, 0.14);
+	glEnd();
+
+	glBegin(GL_QUADS);
+	glVertex3f(-0.4, 1.9, 0.14);
+	glVertex3f(-0.4, 1.9, -0.14);
 	glVertex3f(-0.4, 2, -0.14);
 	glVertex3f(-0.4, 2, 0.14);
+	glEnd();
+
+	glBegin(GL_QUADS);
+	glVertex3f(0.4, 1.9, 0.14);
+	glVertex3f(0.4, 1.9, -0.14);
+	glVertex3f(0.4, 2, -0.14);
+	glVertex3f(0.4, 2, 0.14);
 	glEnd();
 	
 	glBegin(GL_QUADS);
-	glVertex3f(0.4, 2, 0.14);
+	glVertex3f(0.4, 1.9, 0.14);
+	glVertex3f(-0.4, 1.9, 0.14);
 	glVertex3f(-0.4, 2, 0.14);
-	glVertex3f(-0.4, 2.1, 0.14);
-	glVertex3f(0.4, 2.1, 0.14);
+	glVertex3f(0.4, 2, 0.14);
 	glEnd();
 
 	glBegin(GL_QUADS);
+	glVertex3f(0.4, 1.9, -0.14);
 	glVertex3f(0.4, 2, -0.14);
-	glVertex3f(0.4, 2.1, -0.14);
-	glVertex3f(-0.4, 2.1, -0.14);
 	glVertex3f(-0.4, 2, -0.14);
+	glVertex3f(-0.4, 1.9, -0.14);
 	glEnd();
 
 	glBegin(GL_QUADS);
-	glVertex3f(0.4, 2.1, 0.14);
-	glVertex3f(0.4, 2.1, -0.14);
-	glVertex3f(-0.4, 2.1, -0.14);
-	glVertex3f(-0.4, 2.1, 0.14);
+	glVertex3f(0.4, 2, 0.14);
+	glVertex3f(0.4, 2, -0.14);
+	glVertex3f(-0.4, 2, -0.14);
+	glVertex3f(-0.4, 2, 0.14);
 	glEnd();
 	glPopMatrix();
 	
@@ -676,7 +691,7 @@ void drawSword() {
 
 
 	glPushMatrix();
-	glColor3f(1, 1, 1);
+	glColor3f(0, 0, 0.25);
 	glBegin(GL_POLYGON);
 	glVertex3f(-0.25, 2.125, -0.15);
 	glVertex3f(0.25, 2.125, -0.15);
@@ -688,25 +703,25 @@ void drawSword() {
 
 	glPushMatrix();
 	glBegin(GL_QUADS);
-	glColor3f(1, 1, 1);
+	glColor3f(0.75, 0.75, 0.75);
 	glVertex3f(0, -1, 0.125);
 	glVertex3f(-0.25, -1, 0);
 	glVertex3f(-0.25, 2, 0);
 	glVertex3f(0, 2, 0.125);
 
-	glColor3f(1, 1, 0);
+	//glColor3f(1, 1, 0);
 	glVertex3f(0, 2, 0.125);
 	glVertex3f(0, -1, 0.125);
 	glVertex3f(0.25, -1, 0);
 	glVertex3f(0.25, 2, 0);
 
-	glColor3f(0, 1, 1);
+	//glColor3f(0, 1, 1);
 	glVertex3f(0.25, 2, 0);
 	glVertex3f(0.25, -1, 0);
 	glVertex3f(0, -1, -0.125);
 	glVertex3f(0, 2, -0.125);
 
-	glColor3f(1, 0, 1);
+	//glColor3f(1, 0, 1);
 	glVertex3f(0, 2, -0.125);
 	glVertex3f(-0.25, 2, 0);
 	glVertex3f(-0.25, -1, 0);
@@ -717,22 +732,22 @@ void drawSword() {
 
 	glPushMatrix();
 	glBegin(GL_TRIANGLES);
-	glColor3f(1, 0, 0);
+	//glColor3f(1, 0, 0);
 	glVertex3f(0, -1.25, 0);
 	glVertex3f(0, -1, 0.125);
 	glVertex3f(-0.25, 0, 0);
 
-	glColor3f(0, 0, 1);
+	//glColor3f(0, 0, 1);
 	glVertex3f(-0.25, -1, 0);
 	glVertex3f(0, -1, -0.125);
 	glVertex3f(0, -1.25, 0);
 
-	glColor3f(0, 1, 0);
+	//glColor3f(0, 1, 0);
 	glVertex3f(0, -1.25, 0);
 	glVertex3f(0, -1, 0.125);
 	glVertex3f(0.25, -1, 0);
 
-	glColor3f(1, 1, 1);
+	//glColor3f(1, 1, 1);
 	glVertex3f(0.25, -1, 0);
 	glVertex3f(0, -1, -0.125);
 	glVertex3f(0, -1.25, 0);
@@ -768,9 +783,10 @@ void display()
 
 	glMatrixMode(GL_MODELVIEW);
 	glRotatef(1, 1, 1, 1);
-	/*glPushMatrix();
+	glPushMatrix();
 	glTranslatef(0.0, 3.5, -0.2);
 	//glRotatef(0.01, 1, 1, 1);
+	/*
 	drawHead();
 	glPopMatrix();
 
@@ -810,11 +826,16 @@ void display()
 	glPushMatrix();
 	glTranslatef(0.5, -2.5, 0.0);
 	drawLeg();
-	glPopMatrix();*/
-
+	glPopMatrix();
+	/*
 	glPushMatrix();
 	drawSword();
 	glPopMatrix();
+	*/
+
+
+
+
 }
 //--------------------------------------------------------------------
 
