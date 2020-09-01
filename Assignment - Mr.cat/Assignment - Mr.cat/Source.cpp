@@ -430,14 +430,105 @@ void drawHand() {
 	drawCuboid3f(0.5, 5);
 	glPopMatrix();
 
+	glPushMatrix();
+	glTranslatef(-0.5, -3, 0.25);
+	glRotatef(90, 0, 1, 0);
+	drawCuboid3f(0.5, 0.3);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-0.7, -3.1, 0.25);
+	glRotatef(90, 0, 1, 0);
+	drawCube(0.1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-0.75, -3.25, 0.25);
+	glRotatef(90, 0, 1, 0);
+	drawCube(0.1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-0.5, -3.15, 0.25);
+	glRotatef(90, 0, 1, 0);
+	drawCube(0.1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-0.5, -3.3, 0.25);
+	glRotatef(90, 0, 1, 0);
+	drawCube(0.1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-0.5, -3.45, 0.25);
+	glRotatef(90, 0, 1, 0);
+	drawCube(0.1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-0.3, -3.15, 0.25);
+	glRotatef(90, 0, 1, 0);
+	drawCube(0.1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-0.3, -3.3, 0.25);
+	glRotatef(90, 0, 1, 0);
+	drawCube(0.1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-0.3, -3.45, 0.25);
+	glRotatef(90, 0, 1, 0);
+	drawCube(0.1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-0.1, -3.15, 0.25);
+	glRotatef(90, 0, 1, 0);
+	drawCube(0.1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-0.1, -3.3, 0.25);
+	glRotatef(90, 0, 1, 0);
+	drawCube(0.1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-0.1, -3.45, 0.25);
+	glRotatef(90, 0, 1, 0);
+	drawCube(0.1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.1, -3, 0.25);
+	glRotatef(90, 0, 1, 0);
+	drawCube(0.1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.1, -3.15, 0.25);
+	glRotatef(90, 0, 1, 0);
+	drawCube(0.1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.1, -3.3, 0.25);
+	glRotatef(90, 0, 1, 0);
+	drawCube(0.1);
+	glPopMatrix();
+
 	//Fire gun
+	/*
 	glPushMatrix();
 	glRotatef(-moveHand, 1, 0, 0);
 	glTranslatef(-0.25, -0.50, 0.25);
 	glRotatef(90, 1, 0, 0);
 	drawCylinder(0.5, 2.0);
 	glPopMatrix();
-
+	*/
 	if (isFired && moveHand>70) {
 
 		glTranslatef(0, 0, fireSpeed+=0.1);
@@ -786,7 +877,7 @@ void display()
 	glPushMatrix();
 	glTranslatef(0.0, 3.5, -0.2);
 	//glRotatef(0.01, 1, 1, 1);
-	/*
+	
 	drawHead();
 	glPopMatrix();
 
