@@ -337,7 +337,6 @@ void drawSphereWithoutGlu(float size) {
 		glEnd();
 	}
 }
-
 void drawCone(float baseRadius, float height) {
 	//glColor3f(0.6, 0.48, 0.3);
 
@@ -354,7 +353,6 @@ void drawCylinder(float size, float height) {
 	gluCylinder(cylinder, size, size, height, 10, 9);
 	gluDeleteQuadric(cylinder);
 }
-
 void drawPyramid(float size) {
 	glBegin(GL_QUADS);
 	//Face1 : Bottom
@@ -382,6 +380,7 @@ void drawPyramid(float size) {
 	glVertex3f(size, size, size);
 	glEnd();
 }
+
 void drawLowerArm(float size) {
 	glBegin(GL_QUADS);
 
@@ -424,22 +423,62 @@ void drawLowerArm(float size) {
 	glVertex3f(0, 0, 0);
 	glEnd();
 }
+void drawShoulder() {
+
+	glPushMatrix();
+	glTranslatef(0.0, 0.0, 0.5);
+	//Buttom
+	glBegin(GL_QUADS);
+	glVertex3f(-1.0, 0.0, 0.0);
+	glVertex3f(-1.0, 0.0, -1.0);
+	glVertex3f(1.0, 0.0, -1.0);
+	glVertex3f(1.0, 0.0, 0.0);
+	glEnd();
+
+	//font
+	glBegin(GL_TRIANGLES);
+	glVertex3f(1.0, 0.0, 0.0);
+	glVertex3f(-1.0, 0.0, 0.0);
+	glVertex3f(0.0, 1.0, 0.0);
+
+	//left
+	glVertex3f(0.0, 1.0, 0.0);
+	glVertex3f(-1.0, 0.0, 0.0);
+	glVertex3f(-1.0, 0.0, -1.0);
+
+	//back
+	glVertex3f(-1.0, 0.0, -1.0);
+	glVertex3f(0.0, 1.0, 0.0);
+	glVertex3f(1.0, 0.0, -1.0);
+
+	glVertex3f(1.0, 0.0, -1.0);
+	glVertex3f(0.0, 1.0, 0.0);
+	glVertex3f(1.0, 0.0, 0.0);
+	glEnd();
+
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-1.0, -0.2, 0.0);
+	glRotatef(90, 0.0, 1.0, 0.0);
+	drawCylinder(0.5, 2.0);
+	glPopMatrix();
+}
 void drawLeftHand() {
 	//Upper Arm
 	glColor3f(1, 1, 1);
 	glPushMatrix();
 	glRotatef(90, 0, 0, 1);
-	drawCuboid3f(0.5, 3);
+	drawCuboid3f(0.5, 2.5);
 	glPopMatrix();
 
 	//Lower Arm
 	glPushMatrix();
 	glRotatef(-moveHand, 1, 0, 0);
-	glTranslatef(0, -2.5, 0);
+	glTranslatef(0, -2.0, 0);
 	glRotatef(90, 0, 0, 1);
-	drawCuboid3f(0.5, 5);
+	drawCuboid3f(0.5, 4);
 	glPopMatrix();
-
 
 	if (choice == 1) {
 
@@ -449,49 +488,49 @@ void drawLeftHand() {
 		glRotatef(90, 0, 1, 0);
 
 		//lubang
-		glPushMatrix();
+		/*glPushMatrix();
 		glColor3f(1, 0, 1);
-		glTranslatef(-0.2, -3.0, 0.5);
+		glTranslatef(-0.2, -2.0, 0.5);
 		drawSphere(0.3);
-		glPopMatrix();
+		glPopMatrix();*/
 
 		//hand
 		glPushMatrix();
 		glColor3f(0, 1, 0);
-		glTranslatef(-0.65, -3.5, 0.0);
+		glTranslatef(-0.65, -2.5, 0.0);
 		drawCuboid2f(1.0, 0.8, 0.5);
 		glPopMatrix();
 
 		// 1 finger
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(-0.65, -3.8, 0.0);
+		glTranslatef(-0.65, -2.8, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(0, 0, 1);
-		glTranslatef(-0.57, -3.8, 0.15);
+		glTranslatef(-0.57, -2.8, 0.15);
 		glRotatef(90, 1.0, 0.0, 0.0);
 		drawCylinder(0.08, 0.1);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(-0.65, -4.2, 0.0);
+		glTranslatef(-0.65, -3.2, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(0, 0, 1);
-		glTranslatef(-0.57, -4.2, 0.15);
+		glTranslatef(-0.57, -3.2, 0.15);
 		glRotatef(90, 1.0, 0.0, 0.0);
 		drawCylinder(0.08, 0.1);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(-0.65, -4.6, 0.0);
+		glTranslatef(-0.65, -3.6, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 		// end of hand
@@ -499,33 +538,33 @@ void drawLeftHand() {
 		// 1 finger
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(-0.45, -3.8, 0.0);
+		glTranslatef(-0.45, -2.8, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(0, 0, 1);
-		glTranslatef(-0.37, -3.8, 0.15);
+		glTranslatef(-0.37, -2.8, 0.15);
 		glRotatef(90, 1.0, 0.0, 0.0);
 		drawCylinder(0.08, 0.1);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(-0.45, -4.2, 0.0);
+		glTranslatef(-0.45, -3.2, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(0, 0, 1);
-		glTranslatef(-0.37, -4.2, 0.15);
+		glTranslatef(-0.37, -3.2, 0.15);
 		glRotatef(90, 1.0, 0.0, 0.0);
 		drawCylinder(0.08, 0.1);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(-0.45, -4.6, 0.0);
+		glTranslatef(-0.45, -3.6, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 		// end of hand
@@ -533,33 +572,33 @@ void drawLeftHand() {
 		// 1 finger
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(-0.25, -3.8, 0.0);
+		glTranslatef(-0.25, -2.8, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(0, 0, 1);
-		glTranslatef(-0.17, -3.8, 0.15);
+		glTranslatef(-0.17, -2.8, 0.15);
 		glRotatef(90, 1.0, 0.0, 0.0);
 		drawCylinder(0.08, 0.1);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(-0.25, -4.2, 0.0);
+		glTranslatef(-0.25, -3.2, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(0, 0, 1);
-		glTranslatef(-0.17, -4.2, 0.15);
+		glTranslatef(-0.17, -3.2, 0.15);
 		glRotatef(90, 1.0, 0.0, 0.0);
 		drawCylinder(0.08, 0.1);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(-0.25, -4.6, 0.0);
+		glTranslatef(-0.25, -3.6, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 		// end of hand
@@ -567,33 +606,33 @@ void drawLeftHand() {
 		// 1 finger
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(-0.05, -3.8, 0.0);
+		glTranslatef(-0.05, -2.8, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(0, 0, 1);
-		glTranslatef(0.03, -3.8, 0.15);
+		glTranslatef(0.03, -2.8, 0.15);
 		glRotatef(90, 1.0, 0.0, 0.0);
 		drawCylinder(0.08, 0.1);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(-0.05, -4.2, 0.0);
+		glTranslatef(-0.05, -3.2, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(0, 0, 1);
-		glTranslatef(0.03, -4.2, 0.15);
+		glTranslatef(0.03, -3.2, 0.15);
 		glRotatef(90, 1.0, 0.0, 0.0);
 		drawCylinder(0.08, 0.1);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(-0.05, -4.6, 0.0);
+		glTranslatef(-0.05, -3.6, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 		// end of hand
@@ -601,15 +640,15 @@ void drawLeftHand() {
 		//mu zhi
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(-1.0, -3.0, 0.0);
-		glRotatef(90, 1.0, 1.0, 0.0);
+		glTranslatef(-1.0, -2.2, 0.3);
+		glRotatef(-90, 1.0, 1.0, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(1, 1, 0);
-		glTranslatef(-1.2, -3.2, 0.2);
-		glRotatef(90, 1.0, 1.0, 0.0);
+		glTranslatef(-1.2, -2.3, 0.5);
+		glRotatef(-90, 1.0, 1.0, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 
@@ -675,67 +714,67 @@ void drawRightHand() {
 	glColor3f(1, 1, 1);
 	glPushMatrix();
 	glRotatef(90, 0, 0, 1);
-	drawCuboid3f(0.5, 3);
+	drawCuboid3f(0.5, 2.5);
 	glPopMatrix();
 
-
-	
 	//Lower Arm
 	glPushMatrix();
 	glRotatef(-moveHand, 1, 0, 0);
-	glTranslatef(0, -2.5, 0);
+	glTranslatef(0, -2.0, 0);
 	glRotatef(90, 0, 0, 1);
-	drawCuboid3f(0.5, 5);
+	drawCuboid3f(0.5, 4);
 	glPopMatrix();
+
 	if(choice==1){
 		glPushMatrix();
 		glRotatef(-moveHand, 1, 0, 0);
-		glTranslatef(0, 0, 0.5);
-		glRotatef(-90, 0, 1, 0);
+		glTranslatef(-0.5, 0, 0);
+		glRotatef(90, 0, 1, 0);
+
 		//lubang
-		glPushMatrix();
+		/*glPushMatrix();
 		glColor3f(1, 0, 1);
-		glTranslatef(-0.2, -3.0, 0.5);
+		glTranslatef(-1.2, -2.0, 0.5);
 		drawSphere(0.3);
-		glPopMatrix();
+		glPopMatrix();*/
 
 		//hand
 		glPushMatrix();
 		glColor3f(0, 1, 0);
-		glTranslatef(-0.65, -3.5, 0.0);
+		glTranslatef(-0.65, -2.5, 0.0);
 		drawCuboid2f(1.0, 0.8, 0.5);
 		glPopMatrix();
 
 		// 1 finger
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(-0.65, -3.8, 0.0);
+		glTranslatef(-0.65, -2.8, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(0, 0, 1);
-		glTranslatef(-0.57, -3.8, 0.15);
+		glTranslatef(-0.57, -2.8, 0.15);
 		glRotatef(90, 1.0, 0.0, 0.0);
 		drawCylinder(0.08, 0.1);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(-0.65, -4.2, 0.0);
+		glTranslatef(-0.65, -3.2, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(0, 0, 1);
-		glTranslatef(-0.57, -4.2, 0.15);
+		glTranslatef(-0.57, -3.2, 0.15);
 		glRotatef(90, 1.0, 0.0, 0.0);
 		drawCylinder(0.08, 0.1);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(-0.65, -4.6, 0.0);
+		glTranslatef(-0.65, -3.6, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 		// end of hand
@@ -743,33 +782,33 @@ void drawRightHand() {
 		// 1 finger
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(-0.45, -3.8, 0.0);
+		glTranslatef(-0.45, -2.8, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(0, 0, 1);
-		glTranslatef(-0.37, -3.8, 0.15);
+		glTranslatef(-0.37, -2.8, 0.15);
 		glRotatef(90, 1.0, 0.0, 0.0);
 		drawCylinder(0.08, 0.1);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(-0.45, -4.2, 0.0);
+		glTranslatef(-0.45, -3.2, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(0, 0, 1);
-		glTranslatef(-0.37, -4.2, 0.15);
+		glTranslatef(-0.37, -3.2, 0.15);
 		glRotatef(90, 1.0, 0.0, 0.0);
 		drawCylinder(0.08, 0.1);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(-0.45, -4.6, 0.0);
+		glTranslatef(-0.45, -3.6, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 		// end of hand
@@ -777,33 +816,33 @@ void drawRightHand() {
 		// 1 finger
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(-0.25, -3.8, 0.0);
+		glTranslatef(-0.25, -2.8, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(0, 0, 1);
-		glTranslatef(-0.17, -3.8, 0.15);
+		glTranslatef(-0.17, -2.8, 0.15);
 		glRotatef(90, 1.0, 0.0, 0.0);
 		drawCylinder(0.08, 0.1);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(-0.25, -4.2, 0.0);
+		glTranslatef(-0.25, -3.2, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(0, 0, 1);
-		glTranslatef(-0.17, -4.2, 0.15);
+		glTranslatef(-0.17, -3.2, 0.15);
 		glRotatef(90, 1.0, 0.0, 0.0);
 		drawCylinder(0.08, 0.1);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(-0.25, -4.6, 0.0);
+		glTranslatef(-0.25, -3.6, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 		// end of hand
@@ -811,33 +850,33 @@ void drawRightHand() {
 		// 1 finger
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(-0.05, -3.8, 0.0);
+		glTranslatef(-0.05, -2.8, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(0, 0, 1);
-		glTranslatef(0.03, -3.8, 0.15);
+		glTranslatef(0.03, -2.8, 0.15);
 		glRotatef(90, 1.0, 0.0, 0.0);
 		drawCylinder(0.08, 0.1);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(-0.05, -4.2, 0.0);
+		glTranslatef(-0.05, -3.2, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(0, 0, 1);
-		glTranslatef(0.03, -4.2, 0.15);
+		glTranslatef(0.03, -3.2, 0.15);
 		glRotatef(90, 1.0, 0.0, 0.0);
 		drawCylinder(0.08, 0.1);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(-0.05, -4.6, 0.0);
+		glTranslatef(-0.05, -3.6, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 		// end of hand
@@ -845,17 +884,18 @@ void drawRightHand() {
 		//mu zhi
 		glPushMatrix();
 		glColor3f(1, 0, 0);
-		glTranslatef(0.1, -3.0, 0.0);
+		glTranslatef(-1.3, -2.0, 0.0);
 		glRotatef(90, 1.0, 1.0, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
 
 		glPushMatrix();
 		glColor3f(1, 1, 0);
-		glTranslatef(0.3, -3.2, 0.2);
+		glTranslatef(-1.5, -2.2, -0.2);
 		glRotatef(90, 1.0, 1.0, 0.0);
 		drawCuboid3f(0.3, 0.4);
 		glPopMatrix();
+
 		glPopMatrix();
 	}
 	//Fire gun
@@ -1013,6 +1053,12 @@ void drawBody() {
 	drawCube(0.75);
 	glPopMatrix();
 	
+	glPopMatrix();
+}
+void drawBodyBack() {
+
+	glPushMatrix();
+
 	glPopMatrix();
 }
 void drawAss() {
@@ -1272,10 +1318,10 @@ void display()
 	glMatrixMode(GL_MODELVIEW);
 	//glRotatef(1, 1, 1, 1);
 
-	glPushMatrix();
-	glColor3f(1, 0, 0);
-	glTranslatef(0.0, 3.5, -0.2);
-	drawHead();
+	/*glPushMatrix();
+		glColor3f(1, 0, 0);
+		glTranslatef(0.0, 3.5, -0.2);
+		drawHead();
 	glPopMatrix();
 
 	glPushMatrix();
@@ -1283,13 +1329,29 @@ void display()
 		glTranslatef(0.0, 0.45, -0.7);
 
 		glPushMatrix();
-			glTranslatef(2, 0.5, 0.5);
+			glColor3f(1, 0, 0);
+			glTranslatef(1.8, 1.7, 0.5);
+			glRotatef(45, 0.0, 0.0, -1.0);
+			glScalef(0.5, 0.5, 1.0);
+			drawShoulder();
+		glPopMatrix();
+
+		glPushMatrix();
+		glColor3f(1, 0, 0);
+		glTranslatef(-1.8, 1.7, 0.5);
+		glRotatef(45, 0.0, 0.0, 1.0);
+		glScalef(0.5, 0.5, 1.0);
+		drawShoulder();
+		glPopMatrix();
+
+		glPushMatrix();
+			glTranslatef(2.1, 0.5, 0.3);
 			glColor3f(1, 0, 1);
 			drawRightHand();
 		glPopMatrix();
 
 		glPushMatrix();
-			glTranslatef(-1.5, 0.5, 0.5);
+			glTranslatef(-1.6, 0.5, 0.3);
 			glColor3f(1, 0, 0);
 			drawLeftHand();
 		glPopMatrix();
@@ -1308,26 +1370,27 @@ void display()
 
 	//left leg
 	glPushMatrix();
-	glColor3f(0, 1, 1);
-	glTranslatef(-1.0, -2.5, 0.0);
-	drawLeg();
+		glColor3f(0, 1, 1);
+		glTranslatef(-1.0, -2.5, 0.0);
+		drawLeg();
 	glPopMatrix();
 
 	//right leg
 	glPushMatrix();
-	glColor3f(0, 0, 1);
-	glTranslatef(0.5, -2.5, 0.0);
-	drawLeg();
+		glColor3f(0, 0, 1);
+		glTranslatef(0.5, -2.5, 0.0);
+		drawLeg();
 	glPopMatrix();
 	
 	glPushMatrix();
-	glColor3f(1, 1, 1);
-	glTranslatef(3, -1, 0);
-	drawSword();
+		glColor3f(1, 1, 1);
+		glTranslatef(3, -1, 0);
+		drawSword();
+	glPopMatrix();*/
+
+	glPushMatrix();
+		drawBodyBack();
 	glPopMatrix();
-
-	//drawHand();
-
 }
 //--------------------------------------------------------------------
 
