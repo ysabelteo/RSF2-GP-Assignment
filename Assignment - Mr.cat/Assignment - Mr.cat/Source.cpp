@@ -20,7 +20,11 @@ float moveHand = 0;
 int choice=1;
 
 bool isFired = false;
+bool isWalking;
+float wSpeed = 1, walking = 0;
 float fireSpeed = 1;
+bool frontMax=false;
+bool backMax = false;
 LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
@@ -89,6 +93,16 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		}
 		else if (wParam == 0x4A) {
 			choice = 2;
+		}
+		else if (wParam == 0x5A) {
+			isWalking = true;
+			if (!frontMax) {
+				walking += wSpeed;
+			}
+			else
+				walking -= wSpeed;
+			
+			
 		}
 
 		break;
@@ -380,48 +394,6 @@ void drawPyramid(float size) {
 	glVertex3f(size, size, size);
 	glEnd();
 }
-void drawLowerArm(float size) {
-	glBegin(GL_QUADS);
-
-	//Face1 : Bottom
-	//glColor3f(1, 1, 1);
-	glVertex3f(0, 0, 0);
-	glVertex3f(2 * size, 0, 0);
-	glVertex3f(2 * size, 0, size);
-	glVertex3f(0, 0, size / 2);
-	//Face2 : Back
-
-	//glColor3f(1, 0, 0);
-	glVertex3f(0, 0, size / 2);
-	glVertex3f(2 * size, 0, size);
-	glVertex3f(2 * size, size, size);
-	glVertex3f(0, size / 2, size / 2);
-	//Face3 : Left
-	//glColor3f(0, 0, 1);
-	glVertex3f(0, size / 2, size / 2);
-	glVertex3f(0, 0, size / 2);
-	glVertex3f(0, 0, 0);
-	glVertex3f(0, size / 2, 0);
-	//Face4 : Top
-	//glColor3f(0, 1, 0);
-	glVertex3f(0, size / 2, 0);
-	glVertex3f(0, size / 2, size / 2);
-	glVertex3f(2 * size, size, size);
-	glVertex3f(2 * size, size, 0);
-	//Face5 : Right
-	//glColor3f(1, 1, 0);
-	glVertex3f(2 * size, size, 0);
-	glVertex3f(2 * size, size, size);
-	glVertex3f(2 * size, 0, size);
-	glVertex3f(2 * size, 0, 0);
-	//Face6 : Front
-	//glColor3f(0, 1, 1);
-	glVertex3f(2 * size, 0, 0);
-	glVertex3f(2 * size, size, 0);
-	glVertex3f(0, size / 2, 0);
-	glVertex3f(0, 0, 0);
-	glEnd();
-}
 void drawShoulder() {
 
 	glPushMatrix();
@@ -486,18 +458,11 @@ void drawLeftHand() {
 		glTranslatef(-0.5, 0, 0);
 		glRotatef(90, 0, 1, 0);
 
-		//lubang
-		/*glPushMatrix();
-		glColor3f(1, 0, 1);
-		glTranslatef(-0.2, -2.0, 0.5);
-		drawSphere(0.3);
-		glPopMatrix();*/
-
 		//hand
 		glPushMatrix();
 		glColor3f(0, 1, 0);
-		glTranslatef(-0.65, -2.5, 0.0);
-		drawCuboid2f(1.0, 0.8, 0.5);
+		glTranslatef(-0.65, -2.5, -0.005);
+		drawCuboid2f(1.0, 0.81, 0.51);
 		glPopMatrix();
 
 		// 1 finger
@@ -730,18 +695,11 @@ void drawRightHand() {
 		glTranslatef(-0.5, 0, 0);
 		glRotatef(90, 0, 1, 0);
 
-		//lubang
-		/*glPushMatrix();
-		glColor3f(1, 0, 1);
-		glTranslatef(-1.2, -2.0, 0.5);
-		drawSphere(0.3);
-		glPopMatrix();*/
-
 		//hand
 		glPushMatrix();
 		glColor3f(0, 1, 0);
-		glTranslatef(-0.65, -2.5, 0.0);
-		drawCuboid2f(1.0, 0.8, 0.5);
+		glTranslatef(-0.65, -2.5, -0.005);
+		drawCuboid2f(1.0, 0.81, 0.51);
 		glPopMatrix();
 
 		// 1 finger
@@ -1439,10 +1397,21 @@ void display()
 
 	glPushMatrix();
 		glColor3f(1, 1, 0);
+		
 		glTranslatef(0.0, 0.45, -0.7);
-
+		glPushMatrix();
+		
 		glPushMatrix();
 			glColor3f(1, 0, 0);
+			if (isWalking) {
+				if (walking > 20) {
+					frontMax = true;
+				}
+				if (walking < -20) {
+					frontMax = false;
+				}
+				glRotatef(-walking, 1, 0, 0);
+			}
 			glTranslatef(1.8, 1.7, 0.5);
 			glRotatef(45, 0.0, 0.0, -1.0);
 			glScalef(0.5, 0.5, 1.0);
@@ -1451,6 +1420,15 @@ void display()
 
 		glPushMatrix();
 		glColor3f(1, 0, 0);
+		if (isWalking) {
+			if (walking > 20) {
+				frontMax = true;
+			}
+			if (walking < -20) {
+				frontMax = false;
+			}
+			glRotatef(walking, 1, 0, 0);
+		}
 		glTranslatef(-1.8, 1.7, 0.5);
 		glRotatef(45, 0.0, 0.0, 1.0);
 		glScalef(0.5, 0.5, 1.0);
@@ -1458,17 +1436,36 @@ void display()
 		glPopMatrix();
 
 		glPushMatrix();
+		if (isWalking) {
+			if (walking > 20) {
+				frontMax = true;
+			}
+			if (walking < -20) {
+				frontMax = false;
+			}
+			glRotatef(-walking, 1, 0, 0);
+		}
 			glTranslatef(2.1, 0.5, 0.3);
 			glColor3f(1, 0, 1);
 			drawRightHand();
 		glPopMatrix();
 
 		glPushMatrix();
+		if (isWalking) {
+			if (walking > 8) {
+				frontMax = true;
+			}
+			if (walking < -8) {
+				frontMax = false;
+			}
+			glRotatef(walking, 1, 0, 0);
+		}
 			glTranslatef(-1.6, 0.5, 0.3);
 			glColor3f(1, 0, 0);
 			drawLeftHand();
 		glPopMatrix();
 
+		glPopMatrix();
 		glPushMatrix();
 			glColor3f(1, 1, 0);
 			drawBody();
@@ -1483,6 +1480,15 @@ void display()
 
 	//left leg
 	glPushMatrix();
+	if (isWalking) {
+		if (walking > 20) {
+			frontMax = true;
+		}
+		if (walking < -20) {
+			frontMax = false;
+		}
+		glRotatef(walking, 1, 0, 0);
+	}
 		glColor3f(0, 1, 1);
 		glTranslatef(-1.0, -2.5, 0.0);
 		drawLeg();
@@ -1490,6 +1496,15 @@ void display()
 
 	//right leg
 	glPushMatrix();
+	if (isWalking) {
+		if (walking > 20) {
+			frontMax = true;
+		}
+		if (walking < -20) {
+			frontMax = false;
+		}
+		glRotatef(-walking, 1, 0, 0);
+	}
 		glColor3f(0, 0, 1);
 		glTranslatef(0.5, -2.5, 0.0);
 		drawLeg();
