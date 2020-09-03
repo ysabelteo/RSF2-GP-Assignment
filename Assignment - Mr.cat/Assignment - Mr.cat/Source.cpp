@@ -1091,9 +1091,191 @@ void drawBody() {
 }
 void drawBodyBack() {
 
+	//--left--
 	glPushMatrix();
+	glColor3f(1, 0, 0);
+	glTranslatef(-1.0, 0.0, 0.0);
+	drawCuboid2f(2.0, 0.5, 0.4);
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(1, 1, 1);
+	glTranslatef(-0.3, 2.0, 0.5);
+	drawCube(0.3);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-1.0, 2.0, 0.5);
+	glColor3f(1, 1, 1);
+	drawCube(0.3);
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(0, 0, 1);
+	glTranslatef(-0.75, 0.5, 0.7);
+	drawCuboid2f(1.0, 0.1, 0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(0, 0, 1);
+	glTranslatef(-0.55, 0.5, 0.7);
+	drawCuboid2f(1.0, 0.1, 0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(0, 0, 1);
+	glTranslatef(-0.35, 0.5, 0.7);
+	drawCuboid2f(1.0, 0.1, 0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(1, 1, 1);
+	glTranslatef(-0.3, -0.3, 0.5);
+	drawCube(0.3);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-1.0, -0.3, 0.5);
+	glColor3f(1, 1, 1);
+	drawCube(0.3);
+	glPopMatrix();
+
+	//cylinder
+	glPushMatrix();
+	glColor3f(1, 1, 0);
+	glTranslatef(-0.5, 3.5, 0.5);
+	glRotatef(90, 1.0, 0.0, 0.0);
+	drawCylinder(0.3, 1.5);
+	glPopMatrix();
+
+	//cone
+	glPushMatrix();
+	glColor3f(0, 0, 0);
+	glTranslatef(2.1, 4.0, 0.5);
+	glRotatef(90, 1.0, 0.0, 0.0);
+	drawCone(0.3, 0.5);
+	glPopMatrix();
+	//--end of left--
+
+	//--center--
+	//trapezium
+	glPushMatrix();
+	glColor3f(1, 0, 1);
+	glTranslatef(0.8, 1.7, 0.0);
+	glScalef(8, 8, 8);
+	glBegin(GL_POLYGON);
+	//bottom
+	glVertex3f(-0.1, 0.0, 0.0);
+	glVertex3f(0.1, 0.0, 0.0);
+	glVertex3f(0.1, 0.0, 0.1);
+	glVertex3f(-0.1, 0.0, 0.1);
+
+	//left
+	glVertex3f(-0.1, 0.0, 0.1);
+	glVertex3f(-0.1, 0.0, 0.0);
+	glVertex3f(-0.05, 0.1, 0.0);
+	glVertex3f(-0.05, 0.1, 0.1);
+
+	//top
+	glVertex3f(-0.05, 0.1, 0.1);
+	glVertex3f(-0.05, 0.1, 0.0);
+	glVertex3f(0.05, 0.1, 0.0);
+	glVertex3f(0.05, 0.1, 0.1);
+
+	//back
+	glVertex3f(0.05, 0.1, 0.1);
+	glVertex3f(-0.05, 0.1, 0.1);
+	glVertex3f(-0.10, 0.0, 0.1);
+	glVertex3f(0.10, 0.0, 0.1);
+
+	//right
+	glVertex3f(0.10, 0.0, 0.1);
+	glVertex3f(0.05, 0.1, 0.1);
+	glVertex3f(0.05, 0.1, 0.0);
+	glVertex3f(0.1, 0.0, 0.0);
+
+	//front
+	glVertex3f(0.1, 0.0, 0.0);
+	glVertex3f(0.05, 0.1, 0.0);
+	glVertex3f(-0.05, 0.1, 0.0);
+	glVertex3f(-0.05, 0.0, 0.0);
+	glEnd();
 
 	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(0, 1, 1);
+	glScalef(1.0, 1.0, 0.5);
+	glTranslatef(0.0, -0.3, 0.0);
+	drawCuboid3f(2.0, 0.8);
+	glPopMatrix();
+	//--end of center
+
+	//--right--
+	glPushMatrix();
+	glColor3f(1, 0, 0);
+	glTranslatef(1.6, 0.0, 0.0);
+	drawCuboid2f(2.0, 0.5, 0.4);
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(1, 1, 1);
+	glTranslatef(2.3, 2.0, 0.5);
+	drawCube(0.3);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(1.6, 2.0, 0.5);
+	glColor3f(1, 1, 1);
+	drawCube(0.3);
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(0, 0, 1);
+	glTranslatef(1.80, 0.5, 0.7);
+	drawCuboid2f(1.0, 0.1, 0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(0, 0, 1);
+	glTranslatef(2.0, 0.5, 0.7);
+	drawCuboid2f(1.0, 0.1, 0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(0, 0, 1);
+	glTranslatef(2.20, 0.5, 0.7);
+	drawCuboid2f(1.0, 0.1, 0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(1, 1, 1);
+	glTranslatef(1.6, -0.3, 0.5);
+	drawCube(0.3);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(2.3, -0.3, 0.5);
+	glColor3f(1, 1, 1);
+	drawCube(0.3);
+	glPopMatrix();
+
+	//cylinder
+	glPushMatrix();
+	glColor3f(1, 1, 0);
+	glTranslatef(2.1, 3.5, 0.5);
+	glRotatef(90, 1.0, 0.0, 0.0);
+	drawCylinder(0.3, 1.5);
+	glPopMatrix();
+
+	//cone
+	glPushMatrix();
+	glColor3f(0, 0, 0);
+	glTranslatef(-0.5, 4.0, 0.5);
+	glRotatef(90, 1.0, 0.0, 0.0);
+	drawCone(0.3, 0.5);
+	glPopMatrix();
+	//--end of right--
 }
 void drawAss() {
 	//ass
@@ -1189,6 +1371,14 @@ void drawLeg() {
 	drawCuboid2f(0.8, 0.5, 0.8);
 	glPopMatrix();
 
+}
+void drawTail() {
+
+	glPushMatrix();
+	glTranslatef(0.0, 1.0, 0.0);
+	glRotatef(90, 1.0, 0.0, 0.0);
+	drawCylinder(0.3, 1.0);
+	glPopMatrix();
 }
 void drawSword() {
 	
@@ -1470,6 +1660,13 @@ void display()
 			glColor3f(1, 1, 0);
 			drawBody();
 		glPopMatrix();
+
+		glPushMatrix();
+			glLoadIdentity();
+			glTranslatef(0.8, 1.0, -0.8);
+			glRotatef(180, 0.0, 1.0, 0.0);
+			drawBodyBack();
+		glPopMatrix();
 	
 	glPopMatrix();
 
@@ -1517,7 +1714,7 @@ void display()
 	glPopMatrix();
 
 	glPushMatrix();
-		drawBodyBack();
+		drawTail();
 	glPopMatrix();
 }
 //--------------------------------------------------------------------
