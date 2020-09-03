@@ -28,6 +28,7 @@ bool frontMax=false;
 bool backMax = false;
 bool isRotateActivate = false;
 bool isTranslateActivate = false;
+bool isJumping = false;
 
 //--lighting--
 float posD[] = { 0, 3, 0 };
@@ -36,6 +37,7 @@ float diff[] = { 1.0, 0.0, 0.0 }; //red color diffuse light
 float Ra = 0.5, lSpeed = 0.5;
 float ambM[] = { 0.0, 1.0, 0.0 };
 bool lightOn = false; //turn on lighting?
+
 
 LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -187,6 +189,10 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		else if (wParam == '9') {
 			isTranslateActivate = !isTranslateActivate;
 			isRotateActivate = false;
+		}
+		else if (wParam == '8') {
+			isJumping = !isJumping;
+			
 		}
 		break;
 
@@ -522,12 +528,18 @@ void drawLeftHand() {
 	//Upper Arm
 	glColor3f(1, 1, 1);
 	glPushMatrix();
+	if (isJumping) {
+		glRotatef(-20, 1, 0, 0);
+	}
 	glRotatef(90, 0, 0, 1);
 	drawCuboid3f(0.5, 2.5);
 	glPopMatrix();
 
 	//Lower Arm
 	glPushMatrix();
+	if (isJumping) {
+		glRotatef(-45, 1, 0, 0);
+	}
 	glRotatef(-moveHand, 1, 0, 0);
 	glTranslatef(0, -2.0, 0);
 	glRotatef(90, 0, 0, 1);
@@ -535,8 +547,11 @@ void drawLeftHand() {
 	glPopMatrix();
 
 	if (choice == 1) {
-
+		
 		glPushMatrix();
+		if (isJumping) {
+			glRotatef(-45, 1, 0, 0);
+		}
 		glRotatef(-moveHand, 1, 0, 0);
 		glTranslatef(-0.5, 0, 0);
 		glRotatef(90, 0, 1, 0);
@@ -700,9 +715,14 @@ void drawLeftHand() {
 		glPopMatrix();
 
 		glPopMatrix();
+
 	}
 		else if (choice == 2) {
+			
 			glPushMatrix();
+			if (isJumping) {
+				glRotatef(-45, 1, 0, 0);
+			}
 			glRotatef(-moveHand, 1, 0, 0);
 			glTranslatef(-0.25, -0.50, 0.25);
 			glRotatef(90, 1, 0, 0);
@@ -723,6 +743,19 @@ void drawLeftHand() {
 				glEnd();
 			glPopMatrix();
 
+			glPushMatrix();
+				glTranslatef(0, 0, -2.0);
+				glBegin(GL_TRIANGLE_FAN);
+				glColor3f(1.0, 0.0, 0.0);
+				radius = 0.5;
+
+				for (float i = 0; i <= 360; i++) {
+					x2 = x3 + radius * (cos(i * PI / 180));
+					y2 = y3 + radius * (sin(i * PI / 180));
+					glVertex3f(x2, y2, 2);
+				}
+				glEnd();
+			glPopMatrix();
 
 			glPushMatrix();
 			glTranslatef(-0.5, -0.25, 0.25);
@@ -744,15 +777,31 @@ void drawLeftHand() {
 			glEnd();
 			glPopMatrix();
 
+			glPushMatrix();
+			glTranslatef(-0.5, -0.25, -1.75);
+			glBegin(GL_TRIANGLE_FAN);
+			glColor3f(1.0, 0.0, 0.0);
+			radius = 0.25;
+
+			for (float i = 0; i <= 360; i++) {
+				x2 = x3 + radius * (cos(i * PI / 180));
+				y2 = y3 + radius * (sin(i * PI / 180));
+				glVertex3f(x2, y2, 2);
+			}
+			glEnd();
 			glPopMatrix();
+
+			glPopMatrix();
+			
 		}
 
-		if (isFired && moveHand > 70 && choice ==2) {
-
+		if (isFired && moveHand > 70 && choice ==2 && !isJumping) {
+			glPushMatrix();
 			glTranslatef(0, 0, fireSpeed += 1);
 			glTranslatef(-0.25, 0, 0);
 			glColor3f(1, 1, 1);
 			drawSphere(0.25);
+			glPopMatrix();
 		}
 	
 }
@@ -760,12 +809,18 @@ void drawRightHand() {
 	//Upper Arm
 	glColor3f(1, 1, 1);
 	glPushMatrix();
+	if (isJumping) {
+		glRotatef(-15, 1, 0, 0);
+	}
 	glRotatef(90, 0, 0, 1);
 	drawCuboid3f(0.5, 2.5);
 	glPopMatrix();
 
 	//Lower Arm
 	glPushMatrix();
+	if (isJumping) {
+		glRotatef(-50, 1, 0, 0);
+	}
 	glRotatef(-moveHand, 1, 0, 0);
 	glTranslatef(0, -2.0, 0);
 	glRotatef(90, 0, 0, 1);
@@ -773,6 +828,10 @@ void drawRightHand() {
 	glPopMatrix();
 
 	if(choice==1){
+		glPushMatrix();
+		if (isJumping) {
+			glRotatef(-50, 1, 0, 0);
+		}
 		glPushMatrix();
 		glRotatef(-moveHand, 1, 0, 0);
 		glTranslatef(-0.5, 0, 0);
@@ -937,9 +996,14 @@ void drawRightHand() {
 		glPopMatrix();
 
 		glPopMatrix();
+		glPopMatrix();
 	}
 	//Fire gun
 	else if (choice == 2) {
+		glPushMatrix();
+		if (isJumping) {
+			glRotatef(-50, 1, 0, 0);
+		}
 		glPushMatrix();
 		glRotatef(-moveHand, 1, 0, 0);
 		glTranslatef(-0.25, -0.50, 0.25);
@@ -961,6 +1025,21 @@ void drawRightHand() {
 		glEnd();
 		glPopMatrix();
 
+		glPushMatrix();
+		glTranslatef(0, 0, -2.0);
+		glBegin(GL_TRIANGLE_FAN);
+		glColor3f(1.0, 0.0, 0.0);
+		radius = 0.5;
+
+		for (float i = 0; i <= 360; i++) {
+			x2 = x3 + radius * (cos(i * PI / 180));
+			y2 = y3 + radius * (sin(i * PI / 180));
+			glVertex3f(x2, y2, 2);
+		}
+		glEnd();
+		glPopMatrix();
+
+		glPushMatrix();
 
 		glPushMatrix();
 		glTranslatef(0.5, -0.25, 0.25);
@@ -982,10 +1061,25 @@ void drawRightHand() {
 		glEnd();
 		glPopMatrix();
 
+		glPushMatrix();
+		glTranslatef(0.5, -0.25, -1.75);
+		glBegin(GL_TRIANGLE_FAN);
+		glColor3f(1.0, 0.0, 0.0);
+		radius = 0.25;
+
+		for (float i = 0; i <= 360; i++) {
+			x2 = x3 + radius * (cos(i * PI / 180));
+			y2 = y3 + radius * (sin(i * PI / 180));
+			glVertex3f(x2, y2, 2);
+		}
+		glEnd();
+		glPopMatrix();
+
+		glPopMatrix();
 		glPopMatrix();
 	}
 
-	if (isFired && moveHand > 70 && choice == 2) {
+	if (isFired && moveHand > 70 && choice == 2 && !isJumping) {
 
 		glTranslatef(0, 0, fireSpeed += 1);
 		glTranslatef(-0.25, 0, 0);
@@ -1430,6 +1524,10 @@ void drawLeg() {
 
 	//upper
 	glPushMatrix();
+	if (isJumping) {
+		glRotatef(-20, 1, 0, 0);
+	}
+	
 	//glScalef(1.0, 1.0, 0.2);
 	glTranslatef(0.0, 0.5, 0.0);
 	glRotatef(180, 1.0, 1.0, 0.0);
@@ -1446,6 +1544,9 @@ void drawLeg() {
 	//lower
 	glPushMatrix();
 	//glScalef(1.0, 1.0, 0.2);
+	if (isJumping) {
+		glRotatef(30, 1, 0, 0);
+	}
 	glTranslatef(0.0, -1.7, 0.0);
 	glRotatef(180, 1.0, 1.0, 0.0);
 	drawCuboid3f(0.5, 3);
@@ -1453,18 +1554,27 @@ void drawLeg() {
 
 	//sole
 	glPushMatrix();
+	if (isJumping) {
+		glRotatef(30, 1, 0, 0);
+	}
 	//glScalef(1.5, 0.5, 0.2);
 	glTranslatef(-0.1, -2.0, -0.58);
 	drawCube(0.7);
 	glPopMatrix();
 
 	glPushMatrix();
+	if (isJumping) {
+		glRotatef(30, 1, 0, 0);
+	}
 	glTranslatef(0.7, -2.3, 0.15);
 	glRotatef(90, 0.0, 0.0, 1.0);
 	drawCuboid2f(0.8, 0.5, 1.0);
 	glPopMatrix();
 
 	glPushMatrix();
+	if (isJumping) {
+		glRotatef(30, 1, 0, 0);
+	}
 	glTranslatef(0.7, -2.3, -1.2);
 	glRotatef(90, 0.0, 0.0, 1.0);
 	drawCuboid2f(0.8, 0.5, 0.8);
@@ -1657,10 +1767,10 @@ void projection() {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	
-	if (isRotateActivate) {
+	
 		glRotatef(Rx, 1.0, 0.0, 0.0);
 		glRotatef(Ry, 0.0, 1.0, 0.0);
-	}
+	
 
 	if (isOrtho) {
 		glOrtho(-5.0, 5.0, -5.0, 5.0, -5.0, 5.0);
@@ -1681,6 +1791,7 @@ void lighting() {
 	glLightfv(GL_LIGHT1, GL_POSITION, posD);
 	glEnable(GL_LIGHT1);
 }
+
 void display()
 {
 	glEnable(GL_DEPTH_TEST);
@@ -1689,11 +1800,10 @@ void display()
 	
 	lighting();
 
-	
 	projection();
-	if (isTranslateActivate) {
+	
 		glTranslatef(tx, 0, tz);
-	}
+	
 	
 	glMatrixMode(GL_MODELVIEW);
 	
@@ -1705,6 +1815,12 @@ void display()
 			}
 		
 		}
+		if (isJumping) {
+			glLoadIdentity();
+			glTranslatef(0, 1, 0);
+		}
+		else
+			glLoadIdentity();
 
 		glPushMatrix();
 			glColor3f(1, 0, 0);
@@ -1716,27 +1832,26 @@ void display()
 			glColor3f(1, 1, 0);
 			glTranslatef(0.0, 0.45, -0.7);
 
+			
 			glPushMatrix();{
-		
-				glPushMatrix();{
-					glColor3f(1, 0, 0);
-					if (isWalking) {
-						if (walking > 20) {
-							frontMax = true;
-						}
-						if (walking < -20) {
-							frontMax = false;
-						}
-						glRotatef(-walking, 1, 0, 0);
+				glColor3f(1, 0, 0);
+				if (isWalking) {
+					if (walking > 20) {
+						frontMax = true;
 					}
-					glTranslatef(1.8, 1.7, 0.5);
-					glRotatef(45, 0.0, 0.0, -1.0);
-					glScalef(0.5, 0.5, 1.0);
-					drawShoulder();
+					if (walking < -20) {
+						frontMax = false;
+					}
+					glRotatef(-walking, 1, 0, 0);
 				}
-				glPopMatrix();
+				glTranslatef(1.8, 1.7, 0.5);
+				glRotatef(45, 0.0, 0.0, -1.0);
+				glScalef(0.5, 0.5, 1.0);
+				drawShoulder();
+			}
+			glPopMatrix();
 
-				glPushMatrix();{
+			glPushMatrix();{
 				glColor3f(1, 0, 0);
 				if (isWalking) {
 					if (walking > 20) {
@@ -1751,10 +1866,10 @@ void display()
 				glRotatef(45, 0.0, 0.0, 1.0);
 				glScalef(0.5, 0.5, 1.0);
 				drawShoulder();
-				}
-				glPopMatrix();
+			}
+			glPopMatrix();
 
-				glPushMatrix();{
+			glPushMatrix();{
 				if (isWalking) {
 					if (walking > 20) {
 						frontMax = true;
@@ -1768,9 +1883,9 @@ void display()
 					glColor3f(1, 0, 1);
 					drawRightHand();
 				}
-				glPopMatrix();
+			glPopMatrix();
 
-				glPushMatrix();{
+			glPushMatrix();{
 				if (isWalking) {
 					if (walking > 8) {
 						frontMax = true;
@@ -1784,10 +1899,8 @@ void display()
 					glColor3f(1, 0, 0);
 					drawLeftHand();
 				}
-				glPopMatrix();
-		
-			}
 			glPopMatrix();
+		
 
 			glPushMatrix();
 				glColor3f(1, 1, 0);
@@ -1799,7 +1912,6 @@ void display()
 		glPopMatrix();
 
 		glPushMatrix(); {
-			//glLoadIdentity();
 			glTranslatef(0.8, 1.0, -0.8);
 			glRotatef(180, 0.0, 1.0, 0.0);
 			drawBodyBack();
