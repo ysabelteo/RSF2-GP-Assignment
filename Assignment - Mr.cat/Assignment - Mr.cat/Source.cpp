@@ -42,7 +42,7 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 					tz += tSpeed;
 			}
 			else {
-				if (tz < 8) {
+				if (tz < 14) {
 					tz += tSpeed;
 				}
 			}
@@ -65,7 +65,7 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		}
 		else if (wParam == 'P') {
 			isOrtho = false;
-			tz = 4.0;
+			tz = 7.0;
 		}
 		else if (wParam == VK_LEFT) {
 			Ry += rSpeed;
@@ -1373,8 +1373,8 @@ void projection() {
 		glOrtho(-5.0, 5.0, -5.0, 5.0, -5.0, 5.0);
 	}
 	else {
-		gluPerspective(60.0, 1.0, -1.0, 1.0);
-		glFrustum(-5.0, 5.0, -5.0, 5.0, 1.0, 8.0);
+		gluPerspective(10.0, 1.0, -1.0, 1.0);
+		glFrustum(-5.0, 5.0, -5.0, 5.0, 1.0, 14.0);
 	}
 }
 
@@ -1384,11 +1384,11 @@ void display()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.5, 0.5, 0.5, 0);
 	projection();
-	//glLoadIdentity();
-
+	
+	glTranslatef(0, 0, tz);
 	glMatrixMode(GL_MODELVIEW);
 	//glRotatef(1, 1, 1, 1);
-
+	
 	glPushMatrix();
 		glColor3f(1, 0, 0);
 		glTranslatef(0.0, 3.5, -0.2);
