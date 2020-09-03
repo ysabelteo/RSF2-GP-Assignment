@@ -26,6 +26,15 @@ float fireSpeed = 1;
 float walkingDistance=0;
 bool frontMax=false;
 bool backMax = false;
+
+//--lighting--
+float posD[] = { 0, 3, 0 };
+float lightSpeed = 0.1, light;
+float diff[] = { 1.0, 0.0, 0.0 }; //red color diffuse light
+float Ra = 0.5, lSpeed = 0.5;
+float ambM[] = { 0.0, 1.0, 0.0 };
+bool lightOn = false; //turn on lighting?
+
 LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
@@ -110,6 +119,15 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			walkingDistance = 0;
 			Ry = 0;
 		}
+		else if (wParam == 'L') {
+			lightOn = !lightOn;
+		}
+		else if (wParam == 'M') {
+			posD[0] = 0;
+			posD[1] = 0;
+			posD[2] = 0;
+		}
+		
 		break;
 
 	default:
@@ -1409,6 +1427,7 @@ void drawTail() {
 	glRotatef(90, 1.0, 0.0, 0.0);
 	drawCylinder(0.3, 1.0);
 	glPopMatrix();
+
 }
 void drawSword() {
 	
@@ -1597,13 +1616,25 @@ void projection() {
 		glFrustum(-5.0, 5.0, -5.0, 5.0, 1.0, 14.0);
 	}
 }
-
+void lighting() {
+	if (lightOn) {
+		glEnable(GL_LIGHTING);
+	}
+	else
+		glDisable(GL_LIGHTING);
+	
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, diff);
+	glLightfv(GL_LIGHT1, GL_POSITION, posD);
+	glEnable(GL_LIGHT1);
+}
 void display()
 {
 	glEnable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.5, 0.5, 0.5, 0);
 	
+	lighting();
+
 	projection();
 	
 	glTranslatef(0, 0, tz);
@@ -1765,9 +1796,9 @@ void display()
 		}
 		glPopMatrix();
 
-		glPushMatrix();
-			drawTail();
-		glPopMatrix();
+		//glPushMatrix();
+		//	drawTail();
+		//glPopMatrix();
 
 	glPopMatrix();
 }
