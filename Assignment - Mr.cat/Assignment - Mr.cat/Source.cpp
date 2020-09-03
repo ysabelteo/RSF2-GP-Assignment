@@ -11,9 +11,9 @@
 #define PI 3.14159
 
 float speed;
-float tz = 0, tSpeed = 1.0;
+float tx = 0, tz = 0, tSpeed = 1.0;
 bool isOrtho = true;
-float Ry = 0, rSpeed = 1.0;
+float Ry = 0, Rx = 0, Rz = 0, rSpeed = 1.0;
 
 float moveHand = 0;
 
@@ -26,6 +26,8 @@ float fireSpeed = 1;
 float walkingDistance=0;
 bool frontMax=false;
 bool backMax = false;
+bool isRotateActivate = false;
+bool isTranslateActivate = false;
 
 //--lighting--
 float posD[] = { 0, 3, 0 };
@@ -47,25 +49,37 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		if (wParam == VK_ESCAPE)
 			PostQuitMessage(0);
 		else if (wParam == VK_UP) {
-			if (isOrtho) {
-				if (tz < 5.0)
-					tz += tSpeed;
-			}
-			else {
-				if (tz < 14) {
-					tz += tSpeed;
+			if (isTranslateActivate) {
+				if (isOrtho) {
+					if (tz < 5.0)
+						tz += tSpeed;
 				}
+				else {
+					if (tz < 14) {
+						tz += tSpeed;
+					}
+				}
+			}
+				
+			if (isRotateActivate) {
+				Rx += rSpeed;
 			}
 		}
 		else if (wParam == VK_DOWN) {
-			if (isOrtho) {
-				if (tz > -5)
-					tz -= tSpeed;
-			}
+			if (isTranslateActivate) {
+				if (isOrtho) {
+					if (tz > -5)
+						tz -= tSpeed;
+				}
 
-			else {
-				if (tz > 1)
-					tz -= tSpeed;
+				else {
+					if (tz > 1)
+						tz -= tSpeed;
+				}
+			}
+			
+			if (isRotateActivate) {
+				Rx -= rSpeed;
 			}
 		}
 
@@ -78,10 +92,40 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			tz = 7.0;
 		}
 		else if (wParam == VK_LEFT) {
-			Ry += rSpeed;
+			if (isTranslateActivate) {
+				if (isOrtho) {
+					if (tx > -5)
+						tx -= tSpeed;
+				}
+
+				else {
+					if (tx > -5)
+						tx -= tSpeed;
+				}
+			}
+
+			if (isRotateActivate) {
+				Ry += rSpeed;
+			}
+			
 		}
 		else if (wParam == VK_RIGHT) {
-			Ry -= rSpeed;
+			if (isTranslateActivate) {
+				if (isOrtho) {
+					if (tx < 5)
+						tx += tSpeed;
+				}
+
+				else {
+					if (tx < 5)
+						tx += tSpeed;
+				}
+			}
+
+			if (isRotateActivate) {
+				Ry -= rSpeed;
+			}
+			
 		}
 
 		else if (wParam == 0x57) {
@@ -112,12 +156,21 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			else
 				walking -= wSpeed;
 
-			walkingDistance += 0.1;
+			if (isOrtho)
+				walkingDistance += 0.1;
+			else
+				walkingDistance -= 0.1;
 			
 		}
 		else if (wParam == VK_SPACE) {
 			walkingDistance = 0;
+			Rx = 0;
 			Ry = 0;
+			tx = 0;
+			if (isOrtho)
+				tz = 0;
+			else
+				tz = 7;
 		}
 		else if (wParam == 'L') {
 			lightOn = !lightOn;
@@ -127,7 +180,14 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			posD[1] = 0;
 			posD[2] = 0;
 		}
-		
+		else if (wParam == '0') {
+			isRotateActivate = !isRotateActivate;
+			isTranslateActivate = false;
+		}
+		else if (wParam == '9') {
+			isTranslateActivate = !isTranslateActivate;
+			isRotateActivate = false;
+		}
 		break;
 
 	default:
@@ -996,70 +1056,61 @@ void drawHead() {
 	//eyes
 	glPushMatrix();
 	glTranslatef(-0.75, 0, 0.25);
-	glBegin(GL_QUADS);
-	glColor3f(0, 0, 0);
 
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3f(0, 0, 0);
+	glVertex3f(0.75, -0.1, 0.0);
 	glVertex3f(0, -0.1, 0);
+	glVertex3f(0.15, -0.1, 0.5);
+	glVertex3f(0.75, -0.1, 0.65);
+	glVertex3f(1.35, -0.1, 0.5);
 	glVertex3f(1.5, -0.1, 0);
-	glVertex3f(1.35, -0.1, 0.5);
-	glVertex3f(0.15, -0.1, 0.5);
-
-	glColor3f(0, 0, 0.80);
-	glVertex3f(0.15, -0.1, 0.5);
-	glVertex3f(1.35, -0.1, 0.5);
-	glVertex3f(1.35, 0.2, 0.5);
-	glVertex3f(0.15, 0.2, 0.5);
+	glEnd();
 	
-	glColor3f(0, 0, 0);
+	glBegin(GL_QUADS);
+	glColor3f(0, 0, 0.80);
+	glVertex3f(0, -0.1, 0.0);
+	glVertex3f(0, 0.2, 0.0);
 	glVertex3f(0.15, 0.2, 0.5);
 	glVertex3f(0.15, -0.1, 0.5);
-	glVertex3f(0, -0.1, 0);
-	glVertex3f(0, 0.2, 0.0);
 
-	glVertex3f(0, 0.2, 0.0);
-	glVertex3f(0, -0.1, 0.0);
-	glVertex3f(1.5, -0.1, 0.0);
-	glVertex3f(1.5, 0.2, 0.0);
+	glColor3f(0, 1, 0.80);
+	glVertex3f(0.15, -0.1, 0.5);
+	glVertex3f(0.15, 0.2, 0.5);
+	glVertex3f(0.75, 0.2, 0.65);
+	glVertex3f(0.75, -0.1, 0.65);
 
-	glVertex3f(1.5, 0.2, 0.0);
-	glVertex3f(1.5, -0.1, 0.0);
+	glColor3f(0, 1, 0.80);
+	glVertex3f(0.75, -0.1, 0.65);
+	glVertex3f(0.75, 0.2, 0.65);
+	glVertex3f(1.35, 0.2, 0.5);
+	glVertex3f(1.35, -0.1, 0.5);
+
+	glColor3f(0, 0, 0);
 	glVertex3f(1.35, -0.1, 0.5);
 	glVertex3f(1.35, 0.2, 0.5);
+	glVertex3f(1.5, 0.2, 0.0);
+	glVertex3f(1.5, -0.1, 0.0);
+	glEnd();
 
-	glVertex3f(1.35, 0.2, 0.5);
-	glVertex3f(0.15, 0.2, 0.5);
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3f(0, 0, 0);
+	glVertex3f(0.75, 0.2, 0.0);
 	glVertex3f(0, 0.2, 0);
+	glVertex3f(0.15, 0.2, 0.5);
+	glVertex3f(0.75, 0.2, 0.65);
+	glVertex3f(1.35, 0.2, 0.5);
 	glVertex3f(1.5, 0.2, 0);
+	glEnd();
+	
+	
+	
 
+	
 	glEnd();
 
 	glPopMatrix();
 
-	/*
-	glPushMatrix();
-	glTranslatef(0.0, 0.0, -0.2);
-	glColor3f(0.0, 0.0, 0.0);
-	glBegin(GL_TRIANGLES);
-		glVertex3f(-1.0, 0.3, 1.0);
-		glVertex3f(0.0, 0.6, 1.0);
-		glVertex3f(1.0, 0.3, 1.0);
-	glEnd();
-
-	glBegin(GL_QUADS);
-	glVertex3f(-1.0, 0.3, 1.0);
-	glVertex3f(1.0, 0.3, 1.0);
-	glVertex3f(1.0, 0.0, 1.0);
-	glVertex3f(-1.0, 0.0, 1.0);
-	glEnd();
-
-	glBegin(GL_TRIANGLES);
-		glVertex3f(-1.0, 0.0, 1.0);
-		glVertex3f(0.0, -0.3, 1.0);
-		glVertex3f(1.0, 0.0, 1.0);
-	glEnd();
-
-	glPopMatrix();
-	*/
 
 }
 void drawBody() {
@@ -1605,8 +1656,11 @@ void drawSword() {
 void projection() {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-
-	glRotatef(Ry, 0.0, 1.0, 0.0);
+	
+	if (isRotateActivate) {
+		glRotatef(Rx, 1.0, 0.0, 0.0);
+		glRotatef(Ry, 0.0, 1.0, 0.0);
+	}
 
 	if (isOrtho) {
 		glOrtho(-5.0, 5.0, -5.0, 5.0, -5.0, 5.0);
@@ -1635,11 +1689,13 @@ void display()
 	
 	lighting();
 
-	projection();
 	
-	glTranslatef(0, 0, tz);
+	projection();
+	if (isTranslateActivate) {
+		glTranslatef(tx, 0, tz);
+	}
+	
 	glMatrixMode(GL_MODELVIEW);
-	//glRotatef(1, 1, 1, 1);
 	
 	glPushMatrix();
 		if (isWalking) {
