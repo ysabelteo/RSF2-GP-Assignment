@@ -1197,15 +1197,9 @@ void drawHead() {
 	glVertex3f(1.5, 0.2, 0);
 	glEnd();
 	
-	
-	
-
-	
 	glEnd();
 
 	glPopMatrix();
-
-
 }
 void drawBody() {
 	//body
@@ -1582,13 +1576,131 @@ void drawLeg() {
 
 }
 void drawTail() {
-
 	glPushMatrix();
-	glTranslatef(0.0, 1.0, 0.0);
-	glRotatef(90, 1.0, 0.0, 0.0);
-	drawCylinder(0.3, 1.0);
+	drawSphere(0.2);
 	glPopMatrix();
 
+	glPushMatrix();
+	glTranslatef(0.1, -0.2, 0.0);
+	drawSphere(0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.2, -0.4, 0.0);
+	drawSphere(0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.3, -0.6, 0.0);
+	drawSphere(0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.4, -0.8, 0.0);
+	drawSphere(0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.5, -0.9, 0.0);
+	drawSphere(0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.6, -1.0, 0.0);
+	drawSphere(0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.7, -1.1, 0.0);
+	drawSphere(0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.8, -1.2, 0.0);
+	drawSphere(0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.85, -1.25, 0.0);
+	drawSphere(0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.90, -1.25, 0.0);
+	drawSphere(0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.95, -1.25, 0.0);
+	drawSphere(0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(1.00, -1.25, 0.0);
+	drawSphere(0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(1.1, -1.25, 0.0);
+	drawSphere(0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(1.2, -1.25, 0.0);
+	drawSphere(0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(1.3, -1.25, 0.0);
+	drawSphere(0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(1.4, -1.25, 0.0);
+	drawSphere(0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(1.45, -1.2, 0.0);
+	drawSphere(0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(1.5, -1.15, 0.0);
+	drawSphere(0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(1.55, -1.1, 0.0);
+	drawSphere(0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(1.6, -1.05, 0.0);
+	drawSphere(0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(1.65, -1.00, 0.0);
+	drawSphere(0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(1.70, -0.95, 0.0);
+	drawSphere(0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(1.75, -0.90, 0.0);
+	drawSphere(0.2);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(2.4, -0.1, 0.0);
+	glRotatef(50, 0.0, 0.0, 1.0);
+	glRotatef(-90, 0.0, 1.0, 0.0);
+	drawCone(0.2, 1.0);
+	glPopMatrix();
 }
 void drawSword() {
 	
@@ -1964,9 +2076,11 @@ void display()
 		}
 		glPopMatrix();
 
-		//glPushMatrix();
-		//	drawTail();
-		//glPopMatrix();
+		glPushMatrix();
+		glTranslatef(0.0, -0.5, -1.0);
+		glRotatef(90, 0.0, 1.0, 0.0);
+		drawTail();
+		glPopMatrix();
 
 	glPopMatrix();
 }
