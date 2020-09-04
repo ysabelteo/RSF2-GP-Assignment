@@ -21,7 +21,8 @@ int choice=1;
 
 bool isFired = false;
 bool isWalking;
-float wSpeed = 1, walking = 0;
+float wSpeed = 1, HandAngle = 0;
+float LegAngle = 0;
 float fireSpeed = 1;
 float walkingDistance=0;
 bool frontMax=false;
@@ -158,10 +159,14 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		else if (wParam == 0x5A) {
 			isWalking = true;
 			if (!frontMax) {
-				walking += wSpeed;
+				HandAngle += 2;
+				LegAngle += 1;
 			}
-			else
-				walking -= wSpeed;
+			else {
+				HandAngle -= 2;
+				LegAngle -= 1;
+			}
+				
 
 			if (isOrtho)
 				walkingDistance += 0.1;
@@ -1884,9 +1889,7 @@ void projection() {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	
-		glRotatef(Rx, 1.0, 0.0, 0.0);
-		glRotatef(Ry, 0.0, 1.0, 0.0);
-	
+		
 	if (isOrtho) {
 		glOrtho(-7.0, 7.0, -7.0, 7.0, -7.0, 7.0);
 	}
@@ -2006,7 +2009,7 @@ void display()
 	
 	//--texture
 	GLuint textures[3];
-	
+	/*
 	glPushMatrix();
 	//glTranslatef(-7.0, -7.0, -3.0);
 	//glScalef(1.0, 1.0, 0.5);
@@ -2014,24 +2017,20 @@ void display()
 	background(14.0);
 	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
-
+	*/
 	projection();
+
+	
+	glRotatef(Rx, 1.0, 0.0, 0.0);
+	glRotatef(Ry, 0.0, 1.0, 0.0);
+	glTranslatef(tx, 0, tz);
 
 	lighting();
 
 	glMatrixMode(GL_MODELVIEW);
 
-	
-	glTranslatef(tx, 0, tz);
-	
 	glPushMatrix();
-		if (isWalking) {
-			if (walkingDistance < 14) {
-				glLoadIdentity();
-				glTranslatef(0, 0, walkingDistance);
-			}
 		
-		}
 		if (isJumping) {
 			glLoadIdentity();
 			glTranslatef(0, 1, 0);
@@ -2039,27 +2038,35 @@ void display()
 		else
 			glLoadIdentity();
 
-		glPushMatrix();
+		if (isWalking) {
+			if (walkingDistance < 14) {
+				//glLoadIdentity();
+			glTranslatef(0, 0, walkingDistance);
+			}
+
+		}
+
+		glPushMatrix();{
 			glColor3f(1, 0, 0);
 			glTranslatef(0.0, 3.5, -0.2);
 			drawHead();
+		}
 		glPopMatrix();
 
 		glPushMatrix();{
 			glColor3f(1, 1, 0);
 			glTranslatef(0.0, 0.45, -0.7);
 
-			
 			glPushMatrix();{
 				glColor3f(1, 0, 0);
 				if (isWalking) {
-					if (walking > 20) {
+					if (HandAngle > 10) {
 						frontMax = true;
 					}
-					if (walking < -20) {
+					if (HandAngle < -10) {
 						frontMax = false;
 					}
-					glRotatef(-walking, 1, 0, 0);
+					glRotatef(-HandAngle, 1, 0, 0);
 				}
 				glTranslatef(1.8, 1.7, 0.5);
 				glRotatef(45, 0.0, 0.0, -1.0);
@@ -2071,13 +2078,13 @@ void display()
 			glPushMatrix();{
 				glColor3f(1, 0, 0);
 				if (isWalking) {
-					if (walking > 20) {
+					if (HandAngle > 20) {
 						frontMax = true;
 					}
-					if (walking < -20) {
+					if (HandAngle < -20) {
 						frontMax = false;
 					}
-					glRotatef(walking, 1, 0, 0);
+					glRotatef(HandAngle, 1, 0, 0);
 				}
 				glTranslatef(-1.8, 1.7, 0.5);
 				glRotatef(45, 0.0, 0.0, 1.0);
@@ -2088,13 +2095,13 @@ void display()
 
 			glPushMatrix();{
 				if (isWalking) {
-					if (walking > 20) {
+					if (HandAngle > 20) {
 						frontMax = true;
 					}
-					if (walking < -20) {
+					if (HandAngle < -20) {
 						frontMax = false;
 					}
-					glRotatef(-walking, 1, 0, 0);
+					glRotatef(-HandAngle, 1, 0, 0);
 				}
 					glTranslatef(2.1, 0.5, 0.3);
 					glColor3f(1, 0, 1);
@@ -2104,13 +2111,13 @@ void display()
 
 			glPushMatrix();{
 				if (isWalking) {
-					if (walking > 8) {
+					if (HandAngle > 8) {
 						frontMax = true;
 					}
-					if (walking < -8) {
+					if (HandAngle < -8) {
 						frontMax = false;
 					}
-					glRotatef(walking, 1, 0, 0);
+					glRotatef(HandAngle, 1, 0, 0);
 				}
 					glTranslatef(-1.6, 0.5, 0.3);
 					glColor3f(1, 0, 0);
@@ -2118,13 +2125,11 @@ void display()
 				}
 			glPopMatrix();
 		
-
 			glPushMatrix();
 				glColor3f(1, 1, 0);
 				drawBody();
 			glPopMatrix();
 
-			
 		}
 		glPopMatrix();
 
@@ -2135,21 +2140,22 @@ void display()
 		}
 		glPopMatrix();
 
-		glPushMatrix();
+		glPushMatrix();{
 			glColor3f(1, 0, 1);
 			drawAss();
+		}
 		glPopMatrix();
 
 		//left leg
 		glPushMatrix();{
 		if (isWalking) {
-			if (walking > 20) {
+			if (LegAngle > 20) {
 				frontMax = true;
 			}
-			if (walking < -20) {
+			if (LegAngle < -20) {
 				frontMax = false;
 			}
-			glRotatef(walking, 1, 0, 0);
+			glRotatef(-LegAngle, 1, 0, 0);
 		}
 			glColor3f(0, 1, 1);
 			glTranslatef(-1.0, -2.5, 0.0);
@@ -2160,13 +2166,13 @@ void display()
 		//right leg
 		glPushMatrix();{
 		if (isWalking) {
-			if (walking > 20) {
+			if (LegAngle > 20) {
 				frontMax = true;
 			}
-			if (walking < -20) {
+			if (LegAngle < -20) {
 				frontMax = false;
 			}
-			glRotatef(-walking, 1, 0, 0);
+			glRotatef(LegAngle, 1, 0, 0);
 		}
 			glColor3f(0, 0, 1);
 			glTranslatef(0.5, -2.5, 0.0);
@@ -2181,10 +2187,11 @@ void display()
 		}
 		glPopMatrix();
 
-		glPushMatrix();
+		glPushMatrix();{
 		glTranslatef(0.0, -0.5, -1.0);
 		glRotatef(90, 0.0, 1.0, 0.0);
 		drawTail();
+		}
 		glPopMatrix();
 
 	glPopMatrix();
