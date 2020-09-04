@@ -63,7 +63,7 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 						tz += tSpeed;
 				}
 				else {
-					if (tz < 14) {
+					if (tz < 28) {
 						tz += tSpeed;
 					}
 				}
@@ -81,7 +81,7 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 				}
 
 				else {
-					if (tz > 1)
+					if (tz > 16)
 						tz -= tSpeed;
 				}
 			}
@@ -97,7 +97,7 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		}
 		else if (wParam == 'P') {
 			isOrtho = false;
-			tz = 7.0;
+			tz = 16.0;
 		}
 		else if (wParam == VK_LEFT) {
 			if (isTranslateActivate) {
@@ -184,23 +184,23 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			else
 				tz = 7;
 		}
-		else if (wParam == 'L') {
+		else if (wParam == 0x4C) {
 			lightOn = !lightOn;
 		}
-		else if (wParam == 'M') {
+		else if (wParam == 0x4D) {
 			posD[0] = 0;
 			posD[1] = 0;
 			posD[2] = 0;
 		}
-		else if (wParam == '0') {
+		else if (wParam == 0x30) {
 			isRotateActivate = !isRotateActivate;
 			isTranslateActivate = false;
 		}
-		else if (wParam == '9') {
+		else if (wParam == 0x39) {
 			isTranslateActivate = !isTranslateActivate;
 			isRotateActivate = false;
 		}
-		else if (wParam == '8') {
+		else if (wParam == 0x38) {
 			isJumping = !isJumping;
 			
 		}
@@ -1887,8 +1887,8 @@ void drawSword() {
 }
 void projection() {
 	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
 	
+	glLoadIdentity();
 		
 	if (isOrtho) {
 		glOrtho(-7.0, 7.0, -7.0, 7.0, -7.0, 7.0);
@@ -1938,7 +1938,7 @@ void background(float size) {
 	sphere2 = gluNewQuadric();
 	gluQuadricDrawStyle(sphere2, GLU_FILL);
 	gluQuadricTexture(sphere2, true);
-	gluSphere(sphere2, 8.0, 30, 30);
+	gluSphere(sphere2, 10.0, 30, 30);
 	gluDeleteQuadric(sphere2);
 
 	/*glBegin(GL_QUADS);
@@ -2006,30 +2006,25 @@ void display()
 	glEnable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.5, 0.5, 0.5, 0);
-	
+
 	//--texture
 	GLuint textures[3];
-	/*
-	glPushMatrix();
-	//glTranslatef(-7.0, -7.0, -3.0);
-	//glScalef(1.0, 1.0, 0.5);
-	textures[0] = loadTexture("galaxy.bmp");
-	background(14.0);
-	glDeleteTextures(1, &textures[0]);
-	glPopMatrix();
-	*/
-	projection();
-
 	
-	glRotatef(Rx, 1.0, 0.0, 0.0);
-	glRotatef(Ry, 0.0, 1.0, 0.0);
-	glTranslatef(tx, 0, tz);
-
+	glPushMatrix();
+		glTranslatef(0, 0, 5.0);
+		textures[0] = loadTexture("galaxy.bmp");
+		background(14.0);
+		glDeleteTextures(1, &textures[0]);
+	glPopMatrix();
+	
+	projection();
 	lighting();
-
+	
 	glMatrixMode(GL_MODELVIEW);
+	
 
 	glPushMatrix();
+		
 		
 		if (isJumping) {
 			glLoadIdentity();
@@ -2045,6 +2040,12 @@ void display()
 			}
 
 		}
+		if (isOrtho) {
+			glRotatef(Rx, 1.0, 0.0, 0.0);
+			glRotatef(Ry, 0.0, 1.0, 0.0);
+			
+		}
+		glTranslatef(tx, 0, tz);
 
 		glPushMatrix();{
 			glColor3f(1, 0, 0);
@@ -2195,6 +2196,7 @@ void display()
 		glPopMatrix();
 
 	glPopMatrix();
+
 }
 //--------------------------------------------------------------------
 
