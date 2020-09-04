@@ -19,4 +19,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="beach.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="galaxy.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="metalTexture.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="metalTexture1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="sky.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

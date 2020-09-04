@@ -38,6 +38,11 @@ float Ra = 0.5, lSpeed = 0.5;
 float ambM[] = { 0.0, 1.0, 0.0 };
 bool lightOn = false; //turn on lighting?
 
+//--texture--
+//Step 1: Variable declaration
+//GLuint texture = 0;  //texture name
+BITMAP BMP;			 //bitmap structure
+HBITMAP hBMP = NULL; //bitmap handle
 
 LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -415,7 +420,7 @@ void drawSphere(float size) {
 
 	GLUquadricObj* sphere = NULL;
 	sphere = gluNewQuadric();
-	gluQuadricDrawStyle(sphere, GLU_LINE);
+	gluQuadricDrawStyle(sphere, GLU_FILL);
 	gluSphere(sphere, size, 50, 50);
 	gluDeleteQuadric(sphere);
 }
@@ -1879,13 +1884,11 @@ void projection() {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	
-	
 		glRotatef(Rx, 1.0, 0.0, 0.0);
 		glRotatef(Ry, 0.0, 1.0, 0.0);
 	
-
 	if (isOrtho) {
-		glOrtho(-5.0, 5.0, -5.0, 5.0, -5.0, 5.0);
+		glOrtho(-7.0, 7.0, -7.0, 7.0, -7.0, 7.0);
 	}
 	else {
 		gluPerspective(10.0, 1.0, -1.0, 1.0);
@@ -1903,6 +1906,97 @@ void lighting() {
 	glLightfv(GL_LIGHT1, GL_POSITION, posD);
 	glEnable(GL_LIGHT1);
 }
+GLuint loadTexture(LPCSTR filename) {
+
+	//take from step 1
+	GLuint texture = 0;  //texture name
+
+	//step 3: initialize texture info
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+	HBITMAP hBMP = (HBITMAP)LoadImage(GetModuleHandle(NULL), filename, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION | LR_LOADFROMFILE);
+	GetObject(hBMP, sizeof(BMP), &BMP);
+
+	//step 4: Assign texture to polygon
+	glEnable(GL_TEXTURE_2D);
+	glGenTextures(1, &texture); //generate texture
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, BMP.bmWidth, BMP.bmHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, BMP.bmBits);
+	glTexCoord2f(0.0f, 0.0f);
+
+	//take from step 5
+	DeleteObject(hBMP);
+	return texture;
+}
+void background(float size) {
+
+	GLUquadricObj* sphere2 = NULL;
+	sphere2 = gluNewQuadric();
+	gluQuadricDrawStyle(sphere2, GLU_FILL);
+	gluQuadricTexture(sphere2, true);
+	gluSphere(sphere2, 8.0, 30, 30);
+	gluDeleteQuadric(sphere2);
+
+	/*glBegin(GL_QUADS);
+
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(0, 0, 0);
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(size, 0, 0);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(size, 0, size);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(0, 0, size);
+	
+	
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(0, 0, size);
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(size, 0, size);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(size, size, size);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(0, size, size);
+
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(0, size, size);
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(0, 0, size);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(0, 0, 0);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(0, size, 0);
+
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(0, size, 0);
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(0, size, size);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(size, size, size);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(size, size, 0);
+
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(size, size, 0);
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(size, size, size);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(size, 0, size);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(size, 0, 0);
+
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(size, 0, 0);
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(size, size, 0);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(0, size, 0);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(0, 0, 0);
+	glEnd();*/
+
+}
 
 void display()
 {
@@ -1910,14 +2004,25 @@ void display()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.5, 0.5, 0.5, 0);
 	
-	lighting();
+	//--texture
+	GLuint textures[3];
+	
+	glPushMatrix();
+	//glTranslatef(-7.0, -7.0, -3.0);
+	//glScalef(1.0, 1.0, 0.5);
+	textures[0] = loadTexture("galaxy.bmp");
+	background(14.0);
+	glDeleteTextures(1, &textures[0]);
+	glPopMatrix();
 
 	projection();
-	
-		glTranslatef(tx, 0, tz);
-	
-	
+
+	lighting();
+
 	glMatrixMode(GL_MODELVIEW);
+
+	
+	glTranslatef(tx, 0, tz);
 	
 	glPushMatrix();
 		if (isWalking) {

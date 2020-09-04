@@ -137,6 +137,13 @@
   <ItemGroup>
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="beach.bmp" />
+    <Image Include="galaxy.bmp" />
+    <Image Include="metalTexture.bmp" />
+    <Image Include="metalTexture1.bmp" />
+    <Image Include="sky.bmp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
