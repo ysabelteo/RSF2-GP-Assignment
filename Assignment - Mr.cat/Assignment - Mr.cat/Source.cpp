@@ -1,4 +1,4 @@
-
+﻿
 #include <Windows.h>
 #include <gl/GL.h>
 #include <gl/GLU.h>
@@ -47,7 +47,6 @@ bool lightOn = false; //turn on lighting?
 BITMAP BMP;			 //bitmap structure
 HBITMAP hBMP = NULL; //bitmap handle
 LPCSTR backgroundChoice = "galaxy.bmp";
-
 
 LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -798,7 +797,9 @@ void drawLeftHand() {
 		//glColor3f(0, 0, 1);
 		glTranslatef(-0.57, -2.8, 0.15);
 		glRotatef(90, 1.0, 0.0, 0.0);
+		textures[0] = loadTexture("metalTexture1.bmp");
 		drawCylinder(0.08, 0.1);
+		glDeleteTextures(1, &textures[0]);
 		glPopMatrix();
 
 		glPushMatrix();
@@ -813,7 +814,9 @@ void drawLeftHand() {
 		//glColor3f(0, 0, 1);
 		glTranslatef(-0.57, -3.2, 0.15);
 		glRotatef(90, 1.0, 0.0, 0.0);
+		textures[0] = loadTexture("metalTexture1.bmp");
 		drawCylinder(0.08, 0.1);
+		glDeleteTextures(1, &textures[0]);
 		glPopMatrix();
 
 		glPushMatrix();
@@ -838,7 +841,9 @@ void drawLeftHand() {
 		//glColor3f(0, 0, 1);
 		glTranslatef(-0.37, -2.8, 0.15);
 		glRotatef(90, 1.0, 0.0, 0.0);
+		textures[0] = loadTexture("metalTexture1.bmp");
 		drawCylinder(0.08, 0.1);
+		glDeleteTextures(1, &textures[0]);
 		glPopMatrix();
 
 		glPushMatrix();
@@ -853,7 +858,9 @@ void drawLeftHand() {
 		//glColor3f(0, 0, 1);
 		glTranslatef(-0.37, -3.2, 0.15);
 		glRotatef(90, 1.0, 0.0, 0.0);
+		textures[0] = loadTexture("metalTexture1.bmp");
 		drawCylinder(0.08, 0.1);
+		glDeleteTextures(1, &textures[0]);
 		glPopMatrix();
 
 		glPushMatrix();
@@ -878,7 +885,9 @@ void drawLeftHand() {
 		//glColor3f(0, 0, 1);
 		glTranslatef(-0.17, -2.8, 0.15);
 		glRotatef(90, 1.0, 0.0, 0.0);
+		textures[0] = loadTexture("metalTexture1.bmp");
 		drawCylinder(0.08, 0.1);
+		glDeleteTextures(1, &textures[0]);
 		glPopMatrix();
 
 		glPushMatrix();
@@ -893,7 +902,9 @@ void drawLeftHand() {
 		//glColor3f(0, 0, 1);
 		glTranslatef(-0.17, -3.2, 0.15);
 		glRotatef(90, 1.0, 0.0, 0.0);
+		textures[0] = loadTexture("metalTexture1.bmp");
 		drawCylinder(0.08, 0.1);
+		glDeleteTextures(1, &textures[0]);
 		glPopMatrix();
 
 		glPushMatrix();
@@ -918,7 +929,9 @@ void drawLeftHand() {
 		//glColor3f(0, 0, 1);
 		glTranslatef(0.03, -2.8, 0.15);
 		glRotatef(90, 1.0, 0.0, 0.0);
+		textures[0] = loadTexture("metalTexture1.bmp");
 		drawCylinder(0.08, 0.1);
+		glDeleteTextures(1, &textures[0]);
 		glPopMatrix();
 
 		glPushMatrix();
@@ -933,7 +946,9 @@ void drawLeftHand() {
 		//glColor3f(0, 0, 1);
 		glTranslatef(0.03, -3.2, 0.15);
 		glRotatef(90, 1.0, 0.0, 0.0);
+		textures[0] = loadTexture("metalTexture1.bmp");
 		drawCylinder(0.08, 0.1);
+		glDeleteTextures(1, &textures[0]);
 		glPopMatrix();
 
 		glPushMatrix();
@@ -985,7 +1000,9 @@ void drawLeftHand() {
 			glRotatef(-moveHand, 1, 0, 0);
 			glTranslatef(-0.25, -0.50, 0.25);
 			glRotatef(90, 1, 0, 0);
+			textures[0] = loadTexture("metalTexture1.bmp");
 			drawCylinder(0.5, 2.1);
+			glDeleteTextures(1, &textures[0]);
 
 			glPushMatrix();
 				textures[0] = loadTexture("metalTexture1.bmp");
@@ -1328,6 +1345,7 @@ void drawRightHand() {
 		glRotatef(90, 1.0, 1.0, 0.0);
 		textures[0] = loadTexture("metalTexture1.bmp");
 		drawCuboid3f(0.3, 0.4);
+		glDeleteTextures(1, &textures[0]);
 		glPopMatrix();
 
 		glPushMatrix();
@@ -1361,7 +1379,10 @@ void drawRightHand() {
 		glRotatef(-moveHand, 1, 0, 0);
 		glTranslatef(-0.25, -0.50, 0.25);
 		glRotatef(90, 1, 0, 0);
+
+		textures[0] = loadTexture("metalTexture1.bmp");
 		drawCylinder(0.5, 2.1);
+		glDeleteTextures(1, &textures[0]);
 
 		glPushMatrix();
 		textures[0] = loadTexture("metalTexture1.bmp");
@@ -1453,10 +1474,15 @@ void drawRightHand() {
 	}
 }
 void drawHead() {
+
+	GLuint textures[3];
+
 	//head
 	glPushMatrix();
 	//glColor3f(1.0, 1.0, 1.0);
-	drawSphereWithoutGlu(0.75);
+	textures[0] = loadTexture("metalTexture.bmp");
+	drawSphere(0.75);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
@@ -1467,40 +1493,61 @@ void drawHead() {
 	glRotatef(30, 0, 0, 1);
 	glRotatef(180, 1, 0, 0);
 	//drawPyramid(-0.5);
-
+	
+	//textures[0] = loadTexture("metalTexture.bmp");
 	glBegin(GL_QUADS);
 	//Face1 : Bottom
+	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(0, 0, 0);
+	glTexCoord2f(1.0f, 1.0f);
 	glVertex3f(-0.5, 0, 0);
+	glTexCoord2f(1.0f, 0.0f);
 	glVertex3f(-0.5, 0, -0.5);
+	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(0, 0, -0.5);
+	//glDeleteTextures(1, &textures[0]);
 	glEnd();
 
+	textures[0] = loadTexture("metalTexture.bmp");
 	glBegin(GL_TRIANGLES);
+	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(0, 0, 0);
+	glTexCoord2f(1.0f, 0.0f);
 	glVertex3f(-0.5, 0, 0);
+	glTexCoord2f(0.5f, 1.0f);
 	glVertex3f(-0.5, -0.5, -0.5);
 
+	glTexCoord2f(1.0f, 0.0f);
 	glVertex3f(-0.5, 0, -0.5);
+	glTexCoord2f(1.0f, 0.0f);
 	glVertex3f(-0.5, 0, 0);
+	glTexCoord2f(0.5f, 1.0f);
 	glVertex3f(-0.5, -0.5, -0.5);
 
+	glTexCoord2f(1.0f, 0.0f);
 	glVertex3f(-0.5, 0, -0.5);
+	glTexCoord2f(1.0f, 0.0f);
 	glVertex3f(0, 0, -0.5);
+	glTexCoord2f(0.5f, 1.0f);
 	glVertex3f(-0.5, -0.5, -0.5);
 
+	glTexCoord2f(1.0f, 0.0f);
 	glVertex3f(0, 0, 0);
+	glTexCoord2f(1.0f, 0.0f);
 	glVertex3f(0, 0, -0.5);
+	glTexCoord2f(0.5f, 1.0f);
 	glVertex3f(-0.5, -0.5, -0.5);
 	glEnd();
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
-
 
 	//right ear
 	glPushMatrix();
 	glTranslatef(0.2, -0.15, 0.3);
 	glRotatef(-30, 0, 0, 1);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawPyramid(0.5);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPopMatrix();
@@ -1509,15 +1556,19 @@ void drawHead() {
 	glPushMatrix();
 	glTranslatef(0.0, -0.65, 0.0);
 	glRotatef(90, 1.0, 0.0, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCylinder(0.2, 0.3);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	//eyes
 	glPushMatrix();
 	glTranslatef(-0.75, 0, 0.25);
 
+	//textures[0] = loadTexture("metalTexture.bmp");
 	glBegin(GL_TRIANGLE_FAN);
 	//glColor3f(0, 0, 0);
+
 	glVertex3f(0.75, -0.1, 0.0);
 	glVertex3f(0, -0.1, 0);
 	glVertex3f(0.15, -0.1, 0.5);
@@ -1525,7 +1576,9 @@ void drawHead() {
 	glVertex3f(1.35, -0.1, 0.5);
 	glVertex3f(1.5, -0.1, 0);
 	glEnd();
-	
+	//glDeleteTextures(1, &textures[0]);
+
+	//textures[0] = loadTexture("metalTexture.bmp");
 	glBegin(GL_QUADS);
 	//glColor3f(0, 0, 0.80);
 	glVertex3f(0, -0.1, 0.0);
@@ -1551,7 +1604,9 @@ void drawHead() {
 	glVertex3f(1.5, 0.2, 0.0);
 	glVertex3f(1.5, -0.1, 0.0);
 	glEnd();
+	//glDeleteTextures(1, &textures[0]);
 
+	textures[0] = loadTexture("metalTexture.bmp");
 	glBegin(GL_TRIANGLE_FAN);
 	//glColor3f(0, 0, 0);
 	glVertex3f(0.75, 0.2, 0.0);
@@ -1561,7 +1616,8 @@ void drawHead() {
 	glVertex3f(1.35, 0.2, 0.5);
 	glVertex3f(1.5, 0.2, 0);
 	glEnd();
-	
+	glDeleteTextures(1, &textures[0]);
+
 	glEnd();
 
 	glPopMatrix();
@@ -1623,8 +1679,11 @@ void drawBody() {
 	glPushMatrix();
 	glTranslatef(0, 1.3125, 0.75);
 	////glColor3f(1, 0, 1);
+	textures = loadTexture("metalTexture.bmp");
 	drawCylinder(0.55, 0.5);
+	glDeleteTextures(1, &textures);
 
+	textures = loadTexture("metalTexture.bmp");
 	glBegin(GL_TRIANGLE_FAN);
 	////glColor3f(1.0, 0.0, 0.0);
 	float y3 = 0.0, x3 = 0.0;
@@ -1637,6 +1696,7 @@ void drawBody() {
 		glVertex3f(x2, y2, 0.5);
 	}
 	glEnd();
+	glDeleteTextures(1, &textures);
 
 	glPushMatrix();
 	glTranslatef(0, 0, 0.45);
@@ -1661,54 +1721,71 @@ void drawBody() {
 	glPopMatrix();
 }
 void drawBodyBack() {
+	GLuint textures[3];
 
 	//--left--
 	glPushMatrix();
 	//glColor3f(1, 0, 0);
 	glTranslatef(-1.0, 0.0, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCuboid2f(2.0, 0.5, 0.4);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	//glColor3f(1, 1, 1);
 	glTranslatef(-0.3, 2.0, 0.5);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCube(0.3);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(-1.0, 2.0, 0.5);
 	//glColor3f(1, 1, 1);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCube(0.3);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	//glColor3f(0, 0, 1);
 	glTranslatef(-0.75, 0.5, 0.7);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCuboid2f(1.0, 0.1, 0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	//glColor3f(0, 0, 1);
 	glTranslatef(-0.55, 0.5, 0.7);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCuboid2f(1.0, 0.1, 0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	//glColor3f(0, 0, 1);
 	glTranslatef(-0.35, 0.5, 0.7);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCuboid2f(1.0, 0.1, 0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	//glColor3f(1, 1, 1);
 	glTranslatef(-0.3, -0.3, 0.5);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCube(0.3);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(-1.0, -0.3, 0.5);
 	//glColor3f(1, 1, 1);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCube(0.3);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	//cylinder
@@ -1716,7 +1793,9 @@ void drawBodyBack() {
 	//glColor3f(1, 1, 0);
 	glTranslatef(-0.5, 3.5, 0.5);
 	glRotatef(90, 1.0, 0.0, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCylinder(0.3, 1.5);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	//cone
@@ -1724,7 +1803,9 @@ void drawBodyBack() {
 	//glColor3f(0, 0, 0);
 	glTranslatef(2.1, 4.0, 0.5);
 	glRotatef(90, 1.0, 0.0, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCone(0.3, 0.5);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 	//--end of left--
 
@@ -1734,6 +1815,7 @@ void drawBodyBack() {
 	//glColor3f(1, 0, 1);
 	glTranslatef(0.8, 1.7, 0.0);
 	glScalef(8, 8, 8);
+	textures[0] = loadTexture("metalTexture.bmp");
 	glBegin(GL_POLYGON);
 	//bottom
 	glVertex3f(-0.1, 0.0, 0.0);
@@ -1771,6 +1853,7 @@ void drawBodyBack() {
 	glVertex3f(-0.05, 0.1, 0.0);
 	glVertex3f(-0.05, 0.0, 0.0);
 	glEnd();
+	glDeleteTextures(1, &textures[0]);
 
 	glPopMatrix();
 
@@ -1778,7 +1861,9 @@ void drawBodyBack() {
 	//glColor3f(0, 1, 1);
 	glScalef(1.0, 1.0, 0.5);
 	glTranslatef(0.0, -0.3, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCuboid3f(2.0, 0.8);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 	//--end of center
 
@@ -1786,49 +1871,65 @@ void drawBodyBack() {
 	glPushMatrix();
 	//glColor3f(1, 0, 0);
 	glTranslatef(1.6, 0.0, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCuboid2f(2.0, 0.5, 0.4);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	//glColor3f(1, 1, 1);
 	glTranslatef(2.3, 2.0, 0.5);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCube(0.3);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(1.6, 2.0, 0.5);
 	//glColor3f(1, 1, 1);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCube(0.3);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	//glColor3f(0, 0, 1);
 	glTranslatef(1.80, 0.5, 0.7);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCuboid2f(1.0, 0.1, 0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	//glColor3f(0, 0, 1);
 	glTranslatef(2.0, 0.5, 0.7);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCuboid2f(1.0, 0.1, 0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	//glColor3f(0, 0, 1);
 	glTranslatef(2.20, 0.5, 0.7);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCuboid2f(1.0, 0.1, 0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	//glColor3f(1, 1, 1);
 	glTranslatef(1.6, -0.3, 0.5);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCube(0.3);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(2.3, -0.3, 0.5);
 	//glColor3f(1, 1, 1);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCube(0.3);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	//cylinder
@@ -1836,7 +1937,9 @@ void drawBodyBack() {
 	//glColor3f(1, 1, 0);
 	glTranslatef(2.1, 3.5, 0.5);
 	glRotatef(90, 1.0, 0.0, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCylinder(0.3, 1.5);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	//cone
@@ -1844,27 +1947,35 @@ void drawBodyBack() {
 	//glColor3f(0, 0, 0);
 	glTranslatef(-0.5, 4.0, 0.5);
 	glRotatef(90, 1.0, 0.0, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCone(0.3, 0.5);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 	//--end of right--
 }
 void drawAss() {
-	//ass
+	GLuint textures[3];
+
 	glPushMatrix();
 	glTranslatef(0.0, 1.0, -0.3);
 	glRotatef(90, 1.0, 0.0, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCylinder(0.2, 1.0);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(-0.875, -0.25, -0.5);
 	glRotatef(90, 0, 1, 0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCylinder(0.5, 1.75);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(-0.875, -0.25, -0.5);
 	glRotatef(90, 0, 1, 0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	glBegin(GL_TRIANGLE_FAN);
 	//glColor3f(1.0, 0.0, 0.0);
 	float y3 = 0.0, x3 = 0.0;
@@ -1877,12 +1988,14 @@ void drawAss() {
 		glVertex3f(x2, y2, 1.75);
 	}
 	glEnd();
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(-0.875, -0.25, 1.25);
 	glRotatef(90, 0, 1, 0);
 	glTranslatef(1.75, 0, 0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	glBegin(GL_TRIANGLE_FAN);
 	//glColor3f(1.0, 0.0, 0.0);
 	radius = 0.5;
@@ -1893,12 +2006,12 @@ void drawAss() {
 		glVertex3f(x2, y2, 0);
 	}
 	glEnd();
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
-
-
 	
 }
 void drawLeftLeg() {
+	GLuint textures[3];
 
 	//upper
 	glPushMatrix();
@@ -1917,14 +2030,18 @@ void drawLeftLeg() {
 	//glScalef(1.0, 1.0, 0.2);
 	glTranslatef(0.0, 0.5, 0.0);
 	glRotatef(180, 1.0, 1.0, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCuboid3f(0.5, 2.5);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	//joint
 	glPushMatrix();
 	//glScalef(1.0, 1.0, 0.2);
 	glTranslatef(0.25, 0.15, -0.25);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphereWithoutGlu(0.3);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	//lower
@@ -1944,7 +2061,9 @@ void drawLeftLeg() {
 	}
 	glTranslatef(0.0, -1.7, 0.0);
 	glRotatef(180, 1.0, 1.0, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCuboid3f(0.5, 3);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	//sole
@@ -1962,7 +2081,9 @@ void drawLeftLeg() {
 	}
 	//glScalef(1.5, 0.5, 0.2);
 	glTranslatef(-0.1, -2.0, -0.58);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCube(0.7);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
@@ -1980,7 +2101,9 @@ void drawLeftLeg() {
 	}
 	glTranslatef(0.7, -2.3, 0.15);
 	glRotatef(90, 0.0, 0.0, 1.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCuboid2f(0.8, 0.5, 1.0);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
@@ -1998,11 +2121,14 @@ void drawLeftLeg() {
 	}
 	glTranslatef(0.7, -2.3, -1.2);
 	glRotatef(90, 0.0, 0.0, 1.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCuboid2f(0.8, 0.5, 0.8);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 }
 void drawRightLeg() {
+	GLuint textures[3];
 
 	//upper
 	glPushMatrix();
@@ -2013,14 +2139,18 @@ void drawRightLeg() {
 	//glScalef(1.0, 1.0, 0.2);
 	glTranslatef(0.0, 0.5, 0.0);
 	glRotatef(180, 1.0, 1.0, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCuboid3f(0.5, 2.5);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	//joint
 	glPushMatrix();
 	//glScalef(1.0, 1.0, 0.2);
 	glTranslatef(0.25, 0.15, -0.25);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphereWithoutGlu(0.3);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	//lower
@@ -2031,7 +2161,9 @@ void drawRightLeg() {
 	}
 	glTranslatef(0.0, -1.7, 0.0);
 	glRotatef(180, 1.0, 1.0, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCuboid3f(0.5, 3);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	//sole
@@ -2041,7 +2173,9 @@ void drawRightLeg() {
 	}
 	//glScalef(1.5, 0.5, 0.2);
 	glTranslatef(-0.1, -2.0, -0.58);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCube(0.7);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
@@ -2050,7 +2184,9 @@ void drawRightLeg() {
 	}
 	glTranslatef(0.7, -2.3, 0.15);
 	glRotatef(90, 0.0, 0.0, 1.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCuboid2f(0.8, 0.5, 1.0);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
@@ -2059,217 +2195,319 @@ void drawRightLeg() {
 	}
 	glTranslatef(0.7, -2.3, -1.2);
 	glRotatef(90, 0.0, 0.0, 1.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCuboid2f(0.8, 0.5, 0.8);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 }
 void drawTail() {
+	GLuint textures[3];
+	
 	glPushMatrix();
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphere(0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(0.1, -0.2, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphere(0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(0.2, -0.4, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphere(0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(0.3, -0.6, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphere(0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(0.4, -0.8, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphere(0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(0.5, -0.9, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphere(0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(0.6, -1.0, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphere(0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(0.7, -1.1, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphere(0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(0.8, -1.2, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphere(0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(0.85, -1.25, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphere(0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(0.90, -1.25, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphere(0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(0.95, -1.25, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphere(0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(1.00, -1.25, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphere(0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(1.1, -1.25, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphere(0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(1.2, -1.25, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphere(0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(1.3, -1.25, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphere(0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(1.4, -1.25, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphere(0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(1.45, -1.2, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphere(0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(1.5, -1.15, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphere(0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(1.55, -1.1, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphere(0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(1.6, -1.05, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphere(0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(1.65, -1.00, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphere(0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(1.70, -0.95, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphere(0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(1.75, -0.90, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphere(0.2);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(2.4, -0.1, 0.0);
 	glRotatef(50, 0.0, 0.0, 1.0);
 	glRotatef(-90, 0.0, 1.0, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCone(0.2, 1.0);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 }
 void drawSword() {
 	
+	GLuint textures[3];
+
 	glPushMatrix();
 	////glColor3f(0.478, 0.070, 0.035);
 	glTranslatef(0.0, 3, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphereWithoutGlu(0.15);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 	
 	glPushMatrix();
 	glTranslatef(0.0, 2.9, 0.0);
 	glRotatef(90, 1.0, 0.0, 0.0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCylinder(0.125, 0.3);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(0.0, 2.6, 0.0);
 	glRotatef(90, 1.0, 0.0, 0.0);
 	////glColor3f(1, 0, 0);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCylinder(0.15, 0.1);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 	
 	glPushMatrix();
 	glTranslatef(0, 2, 0);
 	glRotatef(-90, 1, 0, 0);
 	////glColor3f(1, 1, 1);
+	textures[0] = loadTexture("metalTexture.bmp");
 	drawCylinder(0.125, 0.5);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 	
 	glPushMatrix();
+	//textures[0] = loadTexture("metalTexture.bmp");
 	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(0.5, 1.9, 0.14);
+	glTexCoord2f(1.0f, 1.0f);
 	glVertex3f(0.5, 1.9, -0.14);
+	glTexCoord2f(1.0f, 0.0f);
 	glVertex3f(-0.5, 1.9, -0.14);
+	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(-0.5, 1.9, 0.14);
+	//glDeleteTextures(1, &textures[0]);
 	glEnd();
 
+	//textures[0] = loadTexture("metalTexture.bmp");
 	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(-0.4, 1.9, 0.14);
+	glTexCoord2f(1.0f, 1.0f);
 	glVertex3f(-0.4, 1.9, -0.14);
+	glTexCoord2f(1.0f, 0.0f);
 	glVertex3f(-0.4, 2, -0.14);
+	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(-0.4, 2, 0.14);
+	//glDeleteTextures(1, &textures[0]);
 	glEnd();
 
+	//textures[0] = loadTexture("metalTexture.bmp");
 	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(0.5, 1.9, 0.14);
+	glTexCoord2f(1.0f, 1.0f);
 	glVertex3f(0.5, 1.9, -0.14);
+	glTexCoord2f(1.0f, 0.0f);
 	glVertex3f(0.5, 2, -0.14);
+	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(0.5, 2, 0.14);
+	//glDeleteTextures(1, &textures[0]);
 	glEnd();
 
+	//textures[0] = loadTexture("metalTexture.bmp");
 	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(0.5, 1.9, 0.14);
+	glTexCoord2f(1.0f, 1.0f);
 	glVertex3f(-0.5, 1.9, 0.14);
+	glTexCoord2f(1.0f, 0.0f);
 	glVertex3f(-0.5, 2, 0.14);
+	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(0.5, 2, 0.14);
+	//glDeleteTextures(1, &textures[0]);
 	glEnd();
 
+	//textures[0] = loadTexture("metalTexture.bmp");
 	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(0.5, 1.9, -0.14);
+	glTexCoord2f(1.0f, 1.0f);
 	glVertex3f(0.5, 2, -0.14);
+	glTexCoord2f(1.0f, 0.0f);
 	glVertex3f(-0.5, 2, -0.14);
+	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(-0.5, 1.9, -0.14);
+	//glDeleteTextures(1, &textures[0]);
 	glEnd();
 
+	//textures[0] = loadTexture("metalTexture.bmp");
 	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(0.5, 2, 0.14);
+	glTexCoord2f(1.0f, 1.0f);
 	glVertex3f(0.5, 2, -0.14);
+	glTexCoord2f(1.0f, 0.0f);
 	glVertex3f(-0.5, 2, -0.14);
+	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(-0.5, 2, 0.14);
+	//glDeleteTextures(1, &textures[0]);
 	glEnd();
 	glPopMatrix();
 	
 	glPushMatrix();
 	////glColor3f(0, 0, 0.25);
+	//textures[0] = loadTexture("metalTexture.bmp");
 	glBegin(GL_POLYGON);
 	glVertex3f(-0.3, 2.0, 0.15);
 	glVertex3f(0.3, 2.0, 0.15);
 	glVertex3f(0.35, 1.9, 0.15);
 	glVertex3f(0.00, 1.5, 0.15);
 	glVertex3f(-0.35, 1.9, 0.15);
+	//glDeleteTextures(1, &textures[0]);
 	glEnd();
 	glPopMatrix();
 
@@ -2286,12 +2524,14 @@ void drawSword() {
 
 	glPushMatrix();
 	//glColor3f(1,1,1);
+	//textures[0] = loadTexture("metalTexture.bmp");
 	glBegin(GL_POLYGON);
 	glVertex3f(-0.3, 2.0, -0.15);
 	glVertex3f(0.3, 2.0, -0.15);
 	glVertex3f(0.35, 1.9, -0.15);
 	glVertex3f(0.00, 1.5, -0.15);
 	glVertex3f(-0.35, 1.9, -0.15);
+	//glDeleteTextures(1, &textures[0]);
 	glEnd();
 	glPopMatrix();
 
@@ -2308,35 +2548,54 @@ void drawSword() {
 
 	//glColor3f(1, 1, 1);
 	glPushMatrix();
+	//textures[0] = loadTexture("metalTexture.bmp");
 	glBegin(GL_QUADS);
 	////glColor3f(0.75, 0.75, 0.75);
+	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(0, -1, 0.125);
+	glTexCoord2f(1.0f, 1.0f);
 	glVertex3f(-0.25, -1, 0);
+	glTexCoord2f(1.0f, 0.0f);
 	glVertex3f(-0.25, 2, 0);
+	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(0, 2, 0.125);
 
 	////glColor3f(1, 1, 0);
+	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(0, 2, 0.125);
+	glTexCoord2f(1.0f, 1.0f);
 	glVertex3f(0, -1, 0.125);
+	glTexCoord2f(1.0f, 0.0f);
 	glVertex3f(0.25, -1, 0);
+	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(0.25, 2, 0);
 
 	////glColor3f(0, 1, 1);
+	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(0.25, 2, 0);
+	glTexCoord2f(1.0f, 1.0f);
 	glVertex3f(0.25, -1, 0);
+	glTexCoord2f(1.0f, 0.0f);
 	glVertex3f(0, -1, -0.125);
+	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(0, 2, -0.125);
 
 	////glColor3f(1, 0, 1);
+	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(0, 2, -0.125);
+	glTexCoord2f(1.0f, 1.0f);
 	glVertex3f(-0.25, 2, 0);
+	glTexCoord2f(1.0f, 0.0f);
 	glVertex3f(-0.25, -1, 0);
+	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(0, -1, -0.125);
 
+	//glDeleteTextures(1, &textures[0]);
 	glEnd();
 	glPopMatrix();
 
 	glPushMatrix();
+	//textures[0] = loadTexture("metalTexture.bmp");
 	glBegin(GL_TRIANGLES);
 	////glColor3f(1, 0, 0);
 	glVertex3f(0, -1.25, 0);
@@ -2358,6 +2617,7 @@ void drawSword() {
 	glVertex3f(0, -1, -0.125);
 	glVertex3f(0, -1.25, 0);
 
+	//glDeleteTextures(1, &textures[0]);
 	glEnd();
 
 	glPopMatrix();
@@ -2617,6 +2877,7 @@ void display()
 
 	glPopMatrix();
 
+	glDisable(GL_TEXTURE_2D);
 }
 //--------------------------------------------------------------------
 
