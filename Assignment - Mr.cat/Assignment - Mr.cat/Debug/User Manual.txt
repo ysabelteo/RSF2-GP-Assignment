@@ -1,0 +1,32 @@
+=== USER MANUAL ===
+
+=== Hand ===
+Press 'W' to move up hand
+Press 'S' to move down hand
+Press 'H' to switch jack
+Press 'J' to switch back hand
+Press 'C' to use power
+
+=== Leg ===
+Press 'Z' to Walk
+Press '8' to jump
+
+=== Camera ===
+Press '0' to activate rotation of camera
+Press 'Up' key to turn up the camera
+Press 'Down' key to turn down of the camera
+Press 'Left' key to turn left of the camera
+Press 'Right' key to turn right of the camara
+
+Press '9' to translate the camera
+if '9' key is activated
+Press 'Up' key to zoom in
+Press 'Down' key to zoom out
+Press 'Left' key to move camera left
+Press 'Right' key to move camera right
+
+Press 'O' to activate Ortho projection
+Press 'P' to activate perspective projection
+
+=== Lighting ===
+Press 'L' to turn on/off the light.
