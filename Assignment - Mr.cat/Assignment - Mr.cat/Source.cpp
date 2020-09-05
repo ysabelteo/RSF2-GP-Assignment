@@ -21,8 +21,10 @@ int choice=1;
 
 bool isFired = false;
 bool isWalking;
-float wSpeed = 1, HandAngle = 0;
-float LegAngle = 0;
+float wSpeed = 1;
+float UpperArmAngle = 0, LowerArmAngle = 0;
+float UpperLegAngle = 0, LowerLegAngle = 0;
+
 float fireSpeed = 1;
 float walkingDistance=0;
 bool frontMax=false;
@@ -44,6 +46,8 @@ bool lightOn = false; //turn on lighting?
 //GLuint texture = 0;  //texture name
 BITMAP BMP;			 //bitmap structure
 HBITMAP hBMP = NULL; //bitmap handle
+LPCSTR backgroundChoice = "galaxy.bmp";
+
 
 LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -159,12 +163,16 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		else if (wParam == 0x5A) {
 			isWalking = true;
 			if (!frontMax) {
-				HandAngle += 2;
-				LegAngle += 1;
+				UpperArmAngle += 2;
+				LowerArmAngle += 4;
+				UpperLegAngle += 1;
+				LowerLegAngle += 2;
 			}
 			else {
-				HandAngle -= 2;
-				LegAngle -= 1;
+				UpperArmAngle -= 2;
+				LowerArmAngle -= 4;
+				UpperLegAngle -= 1;
+				LowerLegAngle -= 2;
 			}
 				
 
@@ -195,6 +203,15 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		else if (wParam == 0x30) {
 			isRotateActivate = !isRotateActivate;
 			isTranslateActivate = false;
+		}
+		else if (wParam == 0x31) {
+			backgroundChoice = "beach.bmp";
+		}
+		else if (wParam == 0x32) {
+		backgroundChoice = "galaxy.bmp";
+		}
+		else if (wParam == 0x33) {
+		backgroundChoice = "sky.bmp";
 		}
 		else if (wParam == 0x39) {
 			isTranslateActivate = !isTranslateActivate;
@@ -703,6 +720,15 @@ void drawLeftHand() {
 	if (isJumping) {
 		glRotatef(-20, 1, 0, 0);
 	}
+	if (isWalking) {
+		if (UpperArmAngle > 10) {
+			frontMax = true;
+		}
+		if (UpperArmAngle < -10) {
+			frontMax = false;
+		}
+		glRotatef(-UpperArmAngle, 1, 0, 0);
+	}
 	glRotatef(90, 0, 0, 1);
 	textures[0] = loadTexture("metalTexture1.bmp");
 	drawCuboid3f(0.5, 2.5);
@@ -713,6 +739,15 @@ void drawLeftHand() {
 	glPushMatrix();
 	if (isJumping) {
 		glRotatef(-45, 1, 0, 0);
+	}
+	if (isWalking) {
+		if (UpperArmAngle > 10) {
+			frontMax = true;
+		}
+		if (UpperArmAngle < -10) {
+			frontMax = false;
+		}
+		glRotatef(-LowerArmAngle, 1, 0, 0);
 	}
 	glRotatef(-moveHand, 1, 0, 0);
 	glTranslatef(0, -2.0, 0);
@@ -727,6 +762,15 @@ void drawLeftHand() {
 		glPushMatrix();
 		if (isJumping) {
 			glRotatef(-45, 1, 0, 0);
+		}
+		if (isWalking) {
+			if (UpperArmAngle > 10) {
+				frontMax = true;
+			}
+			if (UpperArmAngle < -10) {
+				frontMax = false;
+			}
+			glRotatef(-LowerArmAngle, 1, 0, 0);
 		}
 		glRotatef(-moveHand, 1, 0, 0);
 		glTranslatef(-0.5, 0, 0);
@@ -929,6 +973,15 @@ void drawLeftHand() {
 			if (isJumping) {
 				glRotatef(-45, 1, 0, 0);
 			}
+			if (isWalking) {
+				if (UpperArmAngle > 10) {
+					frontMax = true;
+				}
+				if (UpperArmAngle < -10) {
+					frontMax = false;
+				}
+				glRotatef(-LowerArmAngle, 1, 0, 0);
+			}
 			glRotatef(-moveHand, 1, 0, 0);
 			glTranslatef(-0.25, -0.50, 0.25);
 			glRotatef(90, 1, 0, 0);
@@ -1027,6 +1080,15 @@ void drawRightHand() {
 	if (isJumping) {
 		glRotatef(-15, 1, 0, 0);
 	}
+	if (isWalking) {
+		if (UpperArmAngle > 10) {
+			frontMax = true;
+		}
+		if (UpperArmAngle < -10) {
+			frontMax = false;
+		}
+		glRotatef(UpperArmAngle, 1, 0, 0);
+	}
 	glRotatef(90, 0, 0, 1);
 	textures[0] = loadTexture("metalTexture1.bmp");
 	drawCuboid3f(0.5, 2.5);
@@ -1037,6 +1099,15 @@ void drawRightHand() {
 	glPushMatrix();
 	if (isJumping) {
 		glRotatef(-50, 1, 0, 0);
+	}
+	if (isWalking) {
+		if (UpperArmAngle > 10) {
+			frontMax = true;
+		}
+		if (UpperArmAngle < -10) {
+			frontMax = false;
+		}
+		glRotatef(LowerArmAngle, 1, 0, 0);
 	}
 	glRotatef(-moveHand, 1, 0, 0);
 	glTranslatef(0, -2.0, 0);
@@ -1050,6 +1121,15 @@ void drawRightHand() {
 		glPushMatrix();
 		if (isJumping) {
 			glRotatef(-50, 1, 0, 0);
+		}
+		if (isWalking) {
+			if (UpperArmAngle > 10) {
+				frontMax = true;
+			}
+			if (UpperArmAngle < -10) {
+				frontMax = false;
+			}
+			glRotatef(LowerArmAngle, 1, 0, 0);
 		}
 		glPushMatrix();
 		glRotatef(-moveHand, 1, 0, 0);
@@ -1267,6 +1347,15 @@ void drawRightHand() {
 		glPushMatrix();
 		if (isJumping) {
 			glRotatef(-50, 1, 0, 0);
+		}
+		if (isWalking) {
+			if (UpperArmAngle > 10) {
+				frontMax = true;
+			}
+			if (UpperArmAngle < -10) {
+				frontMax = false;
+			}
+			glRotatef(LowerArmAngle, 1, 0, 0);
 		}
 		glPushMatrix();
 		glRotatef(-moveHand, 1, 0, 0);
@@ -1809,14 +1898,118 @@ void drawAss() {
 
 	
 }
-void drawLeg() {
+void drawLeftLeg() {
 
 	//upper
 	glPushMatrix();
 	if (isJumping) {
 		glRotatef(-20, 1, 0, 0);
 	}
-	
+	if (isWalking) {
+		if (UpperArmAngle > 20) {
+			frontMax = true;
+		}
+		if (UpperArmAngle < -20) {
+			frontMax = false;
+		}
+		glRotatef(UpperLegAngle, 1, 0, 0);
+	}
+	//glScalef(1.0, 1.0, 0.2);
+	glTranslatef(0.0, 0.5, 0.0);
+	glRotatef(180, 1.0, 1.0, 0.0);
+	drawCuboid3f(0.5, 2.5);
+	glPopMatrix();
+
+	//joint
+	glPushMatrix();
+	//glScalef(1.0, 1.0, 0.2);
+	glTranslatef(0.25, 0.15, -0.25);
+	drawSphereWithoutGlu(0.3);
+	glPopMatrix();
+
+	//lower
+	glPushMatrix();
+	//glScalef(1.0, 1.0, 0.2);
+	if (isJumping) {
+		glRotatef(30, 1, 0, 0);
+	}
+	if (isWalking) {
+		if (UpperArmAngle > 20) {
+			frontMax = true;
+		}
+		if (UpperArmAngle < -20) {
+			frontMax = false;
+		}
+		glRotatef(LowerLegAngle, 1, 0, 0);
+	}
+	glTranslatef(0.0, -1.7, 0.0);
+	glRotatef(180, 1.0, 1.0, 0.0);
+	drawCuboid3f(0.5, 3);
+	glPopMatrix();
+
+	//sole
+	glPushMatrix();
+	if (isJumping) {
+		glRotatef(30, 1, 0, 0);
+	}if (isWalking) {
+		if (UpperArmAngle > 20) {
+			frontMax = true;
+		}
+		if (UpperArmAngle < -20) {
+			frontMax = false;
+		}
+		glRotatef(LowerLegAngle, 1, 0, 0);
+	}
+	//glScalef(1.5, 0.5, 0.2);
+	glTranslatef(-0.1, -2.0, -0.58);
+	drawCube(0.7);
+	glPopMatrix();
+
+	glPushMatrix();
+	if (isJumping) {
+		glRotatef(30, 1, 0, 0);
+	}
+	if (isWalking) {
+		if (UpperArmAngle > 20) {
+			frontMax = true;
+		}
+		if (UpperArmAngle < -20) {
+			frontMax = false;
+		}
+		glRotatef(LowerLegAngle, 1, 0, 0);
+	}
+	glTranslatef(0.7, -2.3, 0.15);
+	glRotatef(90, 0.0, 0.0, 1.0);
+	drawCuboid2f(0.8, 0.5, 1.0);
+	glPopMatrix();
+
+	glPushMatrix();
+	if (isJumping) {
+		glRotatef(30, 1, 0, 0);
+	}
+	if (isWalking) {
+		if (UpperArmAngle > 20) {
+			frontMax = true;
+		}
+		if (UpperArmAngle < -20) {
+			frontMax = false;
+		}
+		glRotatef(LowerLegAngle, 1, 0, 0);
+	}
+	glTranslatef(0.7, -2.3, -1.2);
+	glRotatef(90, 0.0, 0.0, 1.0);
+	drawCuboid2f(0.8, 0.5, 0.8);
+	glPopMatrix();
+
+}
+void drawRightLeg() {
+
+	//upper
+	glPushMatrix();
+	if (isJumping) {
+		glRotatef(-20, 1, 0, 0);
+	}
+
 	//glScalef(1.0, 1.0, 0.2);
 	glTranslatef(0.0, 0.5, 0.0);
 	glRotatef(180, 1.0, 1.0, 0.0);
@@ -2275,7 +2468,7 @@ void display()
 	
 	glPushMatrix();
 		glTranslatef(0, 0, 5.0);
-		textures[0] = loadTexture("galaxy.bmp");
+		textures[0] = loadTexture(backgroundChoice);
 		background(14.0);
 		glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
@@ -2321,15 +2514,7 @@ void display()
 
 			glPushMatrix();{
 				//glColor3f(1, 0, 0);
-				if (isWalking) {
-					if (HandAngle > 10) {
-						frontMax = true;
-					}
-					if (HandAngle < -10) {
-						frontMax = false;
-					}
-					glRotatef(-HandAngle, 1, 0, 0);
-				}
+				
 				glTranslatef(1.8, 1.7, 0.5);
 				glRotatef(45, 0.0, 0.0, -1.0);
 				glScalef(0.5, 0.5, 1.0);
@@ -2341,13 +2526,13 @@ void display()
 			glPushMatrix();{
 				//glColor3f(1, 0, 0);
 				if (isWalking) {
-					if (HandAngle > 20) {
+					if (UpperArmAngle > 20) {
 						frontMax = true;
 					}
-					if (HandAngle < -20) {
+					if (UpperArmAngle < -20) {
 						frontMax = false;
 					}
-					glRotatef(HandAngle, 1, 0, 0);
+					glRotatef(UpperArmAngle, 1, 0, 0);
 				}
 				glTranslatef(-1.8, 1.7, 0.5);
 				glRotatef(45, 0.0, 0.0, 1.0);
@@ -2358,13 +2543,13 @@ void display()
 
 			glPushMatrix();{
 				if (isWalking) {
-					if (HandAngle > 20) {
+					if (UpperArmAngle > 20) {
 						frontMax = true;
 					}
-					if (HandAngle < -20) {
+					if (UpperArmAngle < -20) {
 						frontMax = false;
 					}
-					glRotatef(-HandAngle, 1, 0, 0);
+					glRotatef(-UpperArmAngle, 1, 0, 0);
 				}
 					glTranslatef(2.1, 0.5, 0.3);
 					//glColor3f(1, 0, 1);
@@ -2373,15 +2558,6 @@ void display()
 			glPopMatrix();
 
 			glPushMatrix();{
-				if (isWalking) {
-					if (HandAngle > 8) {
-						frontMax = true;
-					}
-					if (HandAngle < -8) {
-						frontMax = false;
-					}
-					glRotatef(HandAngle, 1, 0, 0);
-				}
 					glTranslatef(-1.6, 0.5, 0.3);
 					//glColor3f(1, 0, 0);
 					drawLeftHand();
@@ -2411,35 +2587,17 @@ void display()
 
 		//left leg
 		glPushMatrix();{
-		if (isWalking) {
-			if (LegAngle > 20) {
-				frontMax = true;
-			}
-			if (LegAngle < -20) {
-				frontMax = false;
-			}
-			glRotatef(-LegAngle, 1, 0, 0);
-		}
 			//glColor3f(0, 1, 1);
 			glTranslatef(-1.0, -2.5, 0.0);
-			drawLeg();
+			drawLeftLeg();
 		}
 		glPopMatrix();
 
 		//right leg
 		glPushMatrix();{
-		if (isWalking) {
-			if (LegAngle > 20) {
-				frontMax = true;
-			}
-			if (LegAngle < -20) {
-				frontMax = false;
-			}
-			glRotatef(LegAngle, 1, 0, 0);
-		}
 			//glColor3f(0, 0, 1);
 			glTranslatef(0.5, -2.5, 0.0);
-			drawLeg();
+			drawRightLeg();
 		}
 		glPopMatrix();
 	
