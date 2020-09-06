@@ -20,9 +20,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="beach.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="galaxy.bmp">
       <Filter>Resource Files</Filter>
     </Image>
@@ -30,9 +27,6 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="metalTexture1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="sky.bmp">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="sword1.bmp">
@@ -47,16 +41,10 @@
     <Image Include="eyes.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="golden.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="pot.bmp">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="power.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="power2.bmp">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="rocket.bmp">
@@ -74,12 +62,6 @@
     <Image Include="red3.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="pattern1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="pattern2.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="red2.bmp">
       <Filter>Resource Files</Filter>
     </Image>
@@ -92,10 +74,37 @@
     <Image Include="diamond.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="rainbow.bmp">
+    <Image Include="grey.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="grey.bmp">
+    <Image Include="sea.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="white.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="yellow.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="red4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="purple.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="chocolate.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="mint.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="blue3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="green.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="light_green.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
