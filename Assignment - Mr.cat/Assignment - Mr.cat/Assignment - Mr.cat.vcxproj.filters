@@ -35,5 +35,68 @@
     <Image Include="sky.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="sword1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="blue.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="dot_triangle.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="eyes.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="golden.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pot.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="power.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="power2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="rocket.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="sky2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="sky3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="blue2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="red3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pattern1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pattern2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="red2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="black1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="black2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="diamond.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="rainbow.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="grey.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

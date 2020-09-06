@@ -139,10 +139,31 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="beach.bmp" />
+    <Image Include="black1.bmp" />
+    <Image Include="black2.bmp" />
+    <Image Include="blue.bmp" />
+    <Image Include="blue2.bmp" />
+    <Image Include="diamond.bmp" />
+    <Image Include="dot_triangle.bmp" />
+    <Image Include="eyes.bmp" />
     <Image Include="galaxy.bmp" />
+    <Image Include="golden.bmp" />
+    <Image Include="grey.bmp" />
     <Image Include="metalTexture.bmp" />
     <Image Include="metalTexture1.bmp" />
+    <Image Include="pattern1.bmp" />
+    <Image Include="pattern2.bmp" />
+    <Image Include="pot.bmp" />
+    <Image Include="power.bmp" />
+    <Image Include="power2.bmp" />
+    <Image Include="rainbow.bmp" />
+    <Image Include="red2.bmp" />
+    <Image Include="red3.bmp" />
+    <Image Include="rocket.bmp" />
     <Image Include="sky.bmp" />
+    <Image Include="sky2.bmp" />
+    <Image Include="sky3.bmp" />
+    <Image Include="sword1.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
