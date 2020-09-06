@@ -143,10 +143,7 @@
     <Image Include="blue.bmp" />
     <Image Include="blue2.bmp" />
     <Image Include="blue3.bmp" />
-    <Image Include="chocolate.bmp" />
     <Image Include="diamond.bmp" />
-    <Image Include="dot_triangle.bmp" />
-    <Image Include="eyes.bmp" />
     <Image Include="galaxy.bmp" />
     <Image Include="green.bmp" />
     <Image Include="grey.bmp" />
@@ -154,18 +151,15 @@
     <Image Include="metalTexture.bmp" />
     <Image Include="metalTexture1.bmp" />
     <Image Include="mint.bmp" />
-    <Image Include="pot.bmp" />
     <Image Include="power.bmp" />
     <Image Include="purple.bmp" />
     <Image Include="red2.bmp" />
     <Image Include="red3.bmp" />
     <Image Include="red4.bmp" />
     <Image Include="rocket.bmp" />
-    <Image Include="sea.bmp" />
     <Image Include="sky2.bmp" />
     <Image Include="sky3.bmp" />
     <Image Include="sword1.bmp" />
-    <Image Include="white.bmp" />
     <Image Include="yellow.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

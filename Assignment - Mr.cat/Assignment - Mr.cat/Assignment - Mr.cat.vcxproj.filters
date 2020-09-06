@@ -35,15 +35,6 @@
     <Image Include="blue.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="dot_triangle.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="eyes.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="pot.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="power.bmp">
       <Filter>Resource Files</Filter>
     </Image>
@@ -77,12 +68,6 @@
     <Image Include="grey.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="sea.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="white.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="yellow.bmp">
       <Filter>Resource Files</Filter>
     </Image>
@@ -90,9 +75,6 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="purple.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="chocolate.bmp">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="mint.bmp">

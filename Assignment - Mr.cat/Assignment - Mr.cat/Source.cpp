@@ -1,5 +1,4 @@
-﻿
-#include <Windows.h>
+﻿#include <Windows.h>
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include <math.h>
@@ -26,12 +25,16 @@ bool isNod = false;
 bool isShakingHead = false;
 bool isWalking;
 float wSpeed = 1;
-float UpperArmAngle = 0, LowerArmAngle = 0;
+
+float leftUpperArmAngle = 0, leftLowerArmAngle = 0;
+
+float rightUpperArmAngle = 0, rightLowerArmAngle = 0;
 float UpperLegAngle = 0, LowerLegAngle = 0;
 
 float fireSpeed = 1;
 float walkingDistance=0;
-bool frontMax=false;
+bool leftFrontMax = false;
+bool rightFrontMax = false;
 bool backMax = false;
 bool isRotateActivate = false;
 bool isTranslateActivate = false;
@@ -40,15 +43,15 @@ bool isJumping = false;
 //--lighting--
 float posD[] = { 0, 6, 0 };
 float lightSpeed = 0.1, light;
-float diff[] = { 1.0, 0.0, 0.0 }; //red color diffuse light
+float diff[] = { 1.0, 1.0, 1.0 }; 
 float Ra = 0.5, lSpeed = 0.5;
-float ambM[] = { 0.0, 1.0, 0.0 };
-bool lightOn = false; //turn on lighting?
+float ambM[] = { 0.0, 6.0, 0.0 };
+bool lightOn = false; 
+bool isAmbient = false;
 
 //--texture--
-
-BITMAP BMP;			 //bitmap structure
-HBITMAP hBMP = NULL; //bitmap handle
+BITMAP BMP;			 
+HBITMAP hBMP = NULL; 
 LPCSTR backgroundChoice = "galaxy.bmp";
 LPCSTR mainTexture = "metalTexture.bmp";
 LPCSTR subTexture = "blue2.bmp";
@@ -168,23 +171,53 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		else if (wParam == 0x5A) {
 			isWalking = true;
 			isJumping = false;
-			if (!frontMax) {
-				UpperArmAngle += 5;
-				LowerArmAngle += 10;
-				
+			if (!leftFrontMax) {
+				if (rightFrontMax) {
+					leftUpperArmAngle += 5;
+					leftLowerArmAngle += 10;
+
+					rightUpperArmAngle -= 5;
+
+					if (rightLowerArmAngle > 0)
+						rightLowerArmAngle -= 10;
+				}
+				else {
+					leftUpperArmAngle += 5;
+					leftLowerArmAngle += 10;
+				}
 				UpperLegAngle -= 10;
 				LowerLegAngle -= 5;
 			}
-			else {
-				UpperArmAngle -= 5;
-				if(LowerArmAngle>0)
-					LowerArmAngle -= 10;
+
+			else if(leftFrontMax && !rightFrontMax){
+
+				rightUpperArmAngle += 5;
+				rightLowerArmAngle += 10;
+
+				leftUpperArmAngle -= 5;
+
+				if (leftLowerArmAngle > 0)
+					leftLowerArmAngle -= 10;
 
 				UpperLegAngle += 10;
 				LowerLegAngle += 5;
 			}
-				
 
+			else if(rightFrontMax && !leftFrontMax){
+
+				leftUpperArmAngle += 5;
+				leftLowerArmAngle += 10;
+
+				rightUpperArmAngle -= 5;
+
+				if (rightLowerArmAngle > 0)
+					rightLowerArmAngle -= 10;
+
+				UpperLegAngle += 10;
+				LowerLegAngle += 5;
+
+			}
+				
 			if (isOrtho)
 				if(walkingDistance<7)
 					walkingDistance += 0.5;
@@ -197,9 +230,14 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			Rx = 0;
 			Ry = 0;
 			tx = 0;
-			LowerArmAngle = 0;
+			leftLowerArmAngle = 0;
 			LowerLegAngle = 0;
-			UpperArmAngle = 0;
+			leftUpperArmAngle = 0;
+			rightUpperArmAngle = 0;
+			rightLowerArmAngle = 0;
+			leftFrontMax = false;
+			rightFrontMax = false;
+
 			UpperLegAngle = 0;
 			if (isOrtho)
 				tz = 0;
@@ -209,10 +247,8 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		else if (wParam == 0x4C) {
 			lightOn = !lightOn;
 		}
-		else if (wParam == 0x4D) {
-			posD[0] = 0;
-			posD[1] = 0;
-			posD[2] = 0;
+		else if (wParam == 0x4D) { //m
+			isAmbient = false;
 		}
 		else if (wParam == 0x30) {
 			isRotateActivate = !isRotateActivate;
@@ -262,6 +298,9 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		else if (wParam == 0x4E) { //n
 		isShakingHead = !isShakingHead;
 
+		}
+		else if (wParam == 0x42) { //b
+			isAmbient = true;
 		}
 		break;
 
@@ -611,27 +650,6 @@ void drawSphere(float size) {
 	gluSphere(sphere, size, 50, 50);
 	gluDeleteQuadric(sphere);
 }
-void drawSphereWithoutGlu(float size) {
-	//const float PI = 3.141592f;
-	GLfloat x, y, z, sliceA, stackA;
-	GLfloat radius = size;
-	int sliceNo = 30, stackNo = 30;
-
-	for (sliceA = 0.0; sliceA < 2 * PI; sliceA += PI / sliceNo) {
-		glBegin(GL_TRIANGLE_FAN);
-		for (stackA = 0; stackA < 2 * PI; stackA += PI / stackNo) {
-			x = radius * cos(stackA) * sin(sliceA);
-			y = radius * sin(stackA) * sin(sliceA);
-			z = radius * cos(sliceA);
-			glVertex3f(x, y, z);
-			x = radius * cos(stackA) * sin(sliceA + PI / stackNo);
-			y = radius * sin(stackA) * sin(sliceA + PI / sliceNo);
-			z = radius * cos(sliceA + PI / sliceNo);
-			glVertex3f(x, y, z);
-		}
-		glEnd();
-	}
-}
 void drawCone(float baseRadius, float height) {
 	////glColor3f(0.6, 0.48, 0.3);
 	GLUquadricObj* cone = NULL;
@@ -759,10 +777,9 @@ void drawSword() {
 	GLuint textures[3];
 
 	glPushMatrix();
-	////glColor3f(0.478, 0.070, 0.035);
 	glTranslatef(0.0, 3, 0.0);
 	textures[0] = loadTexture("sword1.bmp");
-	drawSphereWithoutGlu(0.15);
+	drawSphere(0.15);
 	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
@@ -777,7 +794,6 @@ void drawSword() {
 	glPushMatrix();
 	glTranslatef(0.0, 2.6, 0.0);
 	glRotatef(90, 1.0, 0.0, 0.0);
-	////glColor3f(1, 0, 0);
 	textures[0] = loadTexture("metalTexture.bmp");
 	drawCylinder(0.15, 0.1);
 	glDeleteTextures(1, &textures[0]);
@@ -786,7 +802,6 @@ void drawSword() {
 	glPushMatrix();
 	glTranslatef(0, 2, 0);
 	glRotatef(-90, 1, 0, 0);
-	////glColor3f(1, 1, 1);
 	textures[2] = loadTexture("black2.bmp");
 	drawCylinder(0.125, 0.5);
 	glDeleteTextures(1, &textures[2]);
@@ -895,7 +910,6 @@ void drawSword2() {
 	glPopMatrix();
 
 	glPushMatrix();
-	//glColor3f(0, 0, 0);
 	glBegin(GL_LINE_LOOP);
 	glVertex3f(-0.3, 2.0, 0.15);
 	glVertex3f(0.3, 2.0, 0.15);
@@ -906,7 +920,6 @@ void drawSword2() {
 	glPopMatrix();
 
 	glPushMatrix();
-	//glColor3f(1,1,1);
 	textures[1] = loadTexture("diamond.bmp");
 	glBegin(GL_POLYGON);
 	glTexCoord2f(-0.9, 1.0);
@@ -924,7 +937,6 @@ void drawSword2() {
 	glPopMatrix();
 
 	glPushMatrix();
-	//glColor3f(0, 0, 0);
 	glBegin(GL_LINE_LOOP);
 	glVertex3f(-0.3, 2.0, -0.15);
 	glVertex3f(0.3, 2.0, -0.15);
@@ -936,7 +948,7 @@ void drawSword2() {
 
 	glColor3f(0.5, 0.5, 0.5);
 	glPushMatrix();
-	//textures[0] = loadTexture("metalTexture.bmp");
+	textures[0] = loadTexture("metalTexture.bmp");
 	glBegin(GL_QUADS);
 	
 	glTexCoord2f(0.0f, 1.0f);
@@ -979,13 +991,12 @@ void drawSword2() {
 	glVertex3f(0, -1, -0.125);
 	
 	glEnd();
-	//glDeleteTextures(1, &textures[0]);
+	glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
-	//textures[2] = loadTexture("metalTexture.bmp");
+	textures[2] = loadTexture("metalTexture.bmp");
 	glBegin(GL_TRIANGLES);
-	////glColor3f(1, 0, 0);
 	glTexCoord2f(0.0, 0.0);
 	glVertex3f(0, -1.25, 0);
 	glTexCoord2f(1.0, 0.0);
@@ -993,7 +1004,6 @@ void drawSword2() {
 	glTexCoord2f(0.5, 1.0);
 	glVertex3f(-0.25, 0, 0);
 
-	////glColor3f(0, 0, 1);
 	glTexCoord2f(0.0, 0.0);
 	glVertex3f(-0.25, -1, 0);
 	glTexCoord2f(1.0, 0.0);
@@ -1001,7 +1011,6 @@ void drawSword2() {
 	glTexCoord2f(0.5, 1.0);
 	glVertex3f(0, -1.25, 0);
 
-	////glColor3f(0, 1, 0);
 	glTexCoord2f(0.0, 0.0);
 	glVertex3f(0, -1.25, 0);
 	glTexCoord2f(1.0, 0.0);
@@ -1009,7 +1018,6 @@ void drawSword2() {
 	glTexCoord2f(0.5, 1.0);
 	glVertex3f(0.25, -1, 0);
 
-	////glColor3f(1, 1, 1);
 	glTexCoord2f(0.0, 0.0);
 	glVertex3f(0.25, -1, 0);
 	glTexCoord2f(1.0, 0.0);
@@ -1018,7 +1026,7 @@ void drawSword2() {
 	glVertex3f(0, -1.25, 0);
 	
 	glEnd();
-	//glDeleteTextures(1, &textures[2]);
+	glDeleteTextures(1, &textures[2]);
 	glPopMatrix();
 }
 void drawLeftHand() {
@@ -1031,13 +1039,14 @@ void drawLeftHand() {
 				glRotatef(-20, 1, 0, 0);
 			}
 			if (isWalking) {
-				if (UpperArmAngle > 5) {
-					frontMax = true;
+				if (leftUpperArmAngle > 5) {
+					leftFrontMax = true;
 				}
-				if (UpperArmAngle < 0) {
-					frontMax = false;
+				if (leftUpperArmAngle <= 0) {
+					leftFrontMax = false;
 				}
-				glRotatef(UpperArmAngle, 1, 0, 0);
+				glRotatef(leftUpperArmAngle, 1, 0, 0);
+
 			}
 			glRotatef(90, 0, 0, 1);
 			textures[1] = loadTexture(mainTexture);
@@ -1052,7 +1061,7 @@ void drawLeftHand() {
 				glRotatef(-45, 1, 0, 0);
 			}
 			if (isWalking) {
-				glRotatef(-LowerArmAngle, 1, 0, 0);
+				glRotatef(-leftLowerArmAngle, 1, 0, 0);
 			}
 			if (isAttack) {
 				glRotatef(-90, 1, 0, 0);
@@ -1402,13 +1411,14 @@ void drawRightHand() {
 				glRotatef(-15, 1, 0, 0);
 			}
 			if (isWalking) {
-				if (UpperArmAngle > 5) {
-					frontMax = true;
+				if (rightUpperArmAngle > 5) {
+					rightFrontMax = true;
 				}
-				if (UpperArmAngle < 0) {
-					frontMax = false;
+				if (rightUpperArmAngle <= 0) {
+					rightFrontMax = false;
 				}
-				glRotatef(UpperArmAngle, 1, 0, 0);
+				glRotatef(leftUpperArmAngle, 1, 0, 0);
+
 			}
 			glRotatef(90, 0, 0, 1);
 			textures[1] = loadTexture(mainTexture);
@@ -1423,7 +1433,7 @@ void drawRightHand() {
 				glRotatef(-50, 1, 0, 0);
 			}
 			if (isWalking) {
-				glRotatef(-LowerArmAngle, 1, 0, 0);
+				glRotatef(-rightLowerArmAngle, 1, 0, 0);
 			}
 			if (isAttack) {
 				glRotatef(-90, 1, 0, 0);
@@ -1754,7 +1764,6 @@ void drawHead() {
 
 	//head
 	glPushMatrix();
-	//glColor3f(1.0, 1.0, 1.0);
 	textures[0] = loadTexture("metalTexture.bmp");
 	drawSphere(0.75);
 	glDeleteTextures(1, &textures[0]);
@@ -1767,9 +1776,7 @@ void drawHead() {
 	glTranslatef(-0.2, -0.15, 0.3);
 	glRotatef(30, 0, 0, 1);
 	glRotatef(180, 1, 0, 0);
-	//drawPyramid(-0.5);
 	
-	//textures[0] = loadTexture(mainTexture);
 	glBegin(GL_QUADS);
 	//Face1 : Bottom
 	glTexCoord2f(0.0f, 1.0f);
@@ -1780,7 +1787,6 @@ void drawHead() {
 	glVertex3f(-0.5, 0, -0.5);
 	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(0, 0, -0.5);
-	//glDeleteTextures(1, &textures[0]);
 	glEnd();
 
 	textures[0] = loadTexture("metalTexture.bmp");
@@ -1842,7 +1848,6 @@ void drawHead() {
 
 	textures[0] = loadTexture("mint.bmp");
 	glBegin(GL_TRIANGLE_FAN);
-	//glColor3f(0, 0, 0);
 	glTexCoord2f(-0.8, 1.0);
 	glVertex3f(0.75, -0.1, 0.0);
 	glTexCoord2f(0.8, 1.0);
@@ -1860,7 +1865,6 @@ void drawHead() {
 
 	textures[0] = loadTexture("mint.bmp");
 	glBegin(GL_QUADS);
-	//glColor3f(0, 0, 0.80);
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(0, -0.1, 0.0);
 	glTexCoord2f(1.0f, 1.0f);
@@ -1870,7 +1874,6 @@ void drawHead() {
 	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(0.15, -0.1, 0.5);
 
-	//glColor3f(0, 1, 0.80);
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(0.15, -0.1, 0.5);
 	glTexCoord2f(1.0f, 1.0f);
@@ -1880,7 +1883,6 @@ void drawHead() {
 	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(0.75, -0.1, 0.65);
 
-	//glColor3f(0, 1, 0.80);
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(0.75, -0.1, 0.65);
 	glTexCoord2f(1.0f, 1.0f);
@@ -1890,7 +1892,6 @@ void drawHead() {
 	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(1.35, -0.1, 0.5);
 
-	//glColor3f(0, 0, 0);
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(1.35, -0.1, 0.5);
 	glTexCoord2f(1.0f, 1.0f);
@@ -1902,9 +1903,7 @@ void drawHead() {
 	glEnd();
 	glDeleteTextures(1, &textures[0]);
 
-	//textures[0] = loadTexture("black1.bmp");
 	glBegin(GL_TRIANGLE_FAN);
-	//glColor3f(0, 0, 0);
 	glVertex3f(0.75, 0.2, 0.0);
 	glVertex3f(0, 0.2, 0);
 	glVertex3f(0.15, 0.2, 0.5);
@@ -1913,7 +1912,6 @@ void drawHead() {
 	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(1.5, 0.2, 0);
 	glEnd();
-	//glDeleteTextures(1, &textures[0]);
 
 	glEnd();
 
@@ -1975,14 +1973,12 @@ void drawBody() {
 
 	glPushMatrix();
 	glTranslatef(0, 1.3125, 0.75);
-	////glColor3f(1, 0, 1);
 	textures[2] = loadTexture(subTexture);
 	drawCylinder(0.55, 0.5);
 	glDeleteTextures(1, &textures[2]);
 
 	textures[2] = loadTexture(subTexture);
 	glBegin(GL_TRIANGLE_FAN);
-	////glColor3f(1.0, 0.0, 0.0);
 	float y3 = 0.0, x3 = 0.0;
 	float x2, y2;
 	float radius = 0.55;
@@ -1997,7 +1993,6 @@ void drawBody() {
 
 	glPushMatrix();
 	glTranslatef(0, 0, 0.45);
-	////glColor3f(0, 1, 1);
 	textures[2] = loadTexture("yellow.bmp");
 	drawSphere(0.25);
 	glDeleteTextures(1, &textures[2]);
@@ -2024,7 +2019,6 @@ void drawBodyBack() {
 
 	//--left--
 	glPushMatrix();
-	//glColor3f(1, 0, 0);
 	glTranslatef(-1.0, 0.0, 0.0);
 	textures[0] = loadTexture("rocket.bmp");
 	drawCuboid2f(2.0, 0.5, 0.4);
@@ -2032,7 +2026,6 @@ void drawBodyBack() {
 	glPopMatrix();
 
 	glPushMatrix();
-	//glColor3f(1, 1, 1);
 	glTranslatef(-0.3, 2.0, 0.5);
 	textures[1] = loadTexture(subTexture);
 	drawCube(0.3);
@@ -2041,14 +2034,12 @@ void drawBodyBack() {
 
 	glPushMatrix();
 	glTranslatef(-1.0, 2.0, 0.5);
-	//glColor3f(1, 1, 1);
 	textures[1] = loadTexture(subTexture);
 	drawCube(0.3);
 	glDeleteTextures(1, &textures[1]);
 	glPopMatrix();
 
 	glPushMatrix();
-	//glColor3f(0, 0, 1);
 	glTranslatef(-0.75, 0.5, 0.7);
 	textures[2] = loadTexture("blue2.bmp");
 	drawCuboid2f(1.0, 0.1, 0.2);
@@ -2056,7 +2047,6 @@ void drawBodyBack() {
 	glPopMatrix();
 
 	glPushMatrix();
-	//glColor3f(0, 0, 1);
 	glTranslatef(-0.55, 0.5, 0.7);
 	textures[2] = loadTexture("blue2.bmp");
 	drawCuboid2f(1.0, 0.1, 0.2);
@@ -2064,7 +2054,6 @@ void drawBodyBack() {
 	glPopMatrix();
 
 	glPushMatrix();
-	//glColor3f(0, 0, 1);
 	glTranslatef(-0.35, 0.5, 0.7);
 	textures[2] = loadTexture("blue2.bmp");
 	drawCuboid2f(1.0, 0.1, 0.2);
@@ -2072,7 +2061,6 @@ void drawBodyBack() {
 	glPopMatrix();
 
 	glPushMatrix();
-	//glColor3f(1, 1, 1);
 	glTranslatef(-0.3, -0.3, 0.5);
 	textures[1] = loadTexture(subTexture);
 	drawCube(0.3);
@@ -2081,7 +2069,6 @@ void drawBodyBack() {
 
 	glPushMatrix();
 	glTranslatef(-1.0, -0.3, 0.5);
-	//glColor3f(1, 1, 1);
 	textures[1] = loadTexture(subTexture);
 	drawCube(0.3);
 	glDeleteTextures(1, &textures[1]);
@@ -2089,7 +2076,6 @@ void drawBodyBack() {
 
 	//cylinder
 	glPushMatrix();
-	//glColor3f(1, 1, 0);
 	glTranslatef(-0.5, 3.5, 0.5);
 	glRotatef(90, 1.0, 0.0, 0.0);
 	textures[1] = loadTexture(subTexture);
@@ -2099,7 +2085,6 @@ void drawBodyBack() {
 
 	//cone
 	glPushMatrix();
-	//glColor3f(0, 0, 0);
 	glTranslatef(2.1, 4.0, 0.5);
 	glRotatef(90, 1.0, 0.0, 0.0);
 	textures[0] = loadTexture("rocket.bmp");
@@ -2110,7 +2095,6 @@ void drawBodyBack() {
 
 	//--center--
 	glPushMatrix();
-	//glColor3f(0, 1, 1);
 	glScalef(1.0, 1.0, 0.5);
 	glTranslatef(0.0, -0.3, 0.0);
 	textures[0] = loadTexture("rocket.bmp");
@@ -2121,7 +2105,6 @@ void drawBodyBack() {
 
 	//--right--
 	glPushMatrix();
-	//glColor3f(1, 0, 0);
 	glTranslatef(1.6, 0.0, 0.0);
 	textures[0] = loadTexture("rocket.bmp");
 	drawCuboid2f(2.0, 0.5, 0.4);
@@ -2129,7 +2112,6 @@ void drawBodyBack() {
 	glPopMatrix();
 
 	glPushMatrix();
-	//glColor3f(1, 1, 1);
 	glTranslatef(2.3, 2.0, 0.5);
 	textures[1] = loadTexture(subTexture);
 	drawCube(0.3);
@@ -2138,14 +2120,12 @@ void drawBodyBack() {
 
 	glPushMatrix();
 	glTranslatef(1.6, 2.0, 0.5);
-	//glColor3f(1, 1, 1);
 	textures[1] = loadTexture(subTexture);
 	drawCube(0.3);
 	glDeleteTextures(1, &textures[1]);
 	glPopMatrix();
 
 	glPushMatrix();
-	//glColor3f(0, 0, 1);
 	glTranslatef(1.80, 0.5, 0.7);
 	textures[2] = loadTexture("blue2.bmp");
 	drawCuboid2f(1.0, 0.1, 0.2);
@@ -2153,7 +2133,6 @@ void drawBodyBack() {
 	glPopMatrix();
 
 	glPushMatrix();
-	//glColor3f(0, 0, 1);
 	glTranslatef(2.0, 0.5, 0.7);
 	textures[2] = loadTexture("blue2.bmp");
 	drawCuboid2f(1.0, 0.1, 0.2);
@@ -2161,7 +2140,6 @@ void drawBodyBack() {
 	glPopMatrix();
 
 	glPushMatrix();
-	//glColor3f(0, 0, 1);
 	glTranslatef(2.20, 0.5, 0.7);
 	textures[2] = loadTexture("blue2.bmp");
 	drawCuboid2f(1.0, 0.1, 0.2);
@@ -2169,7 +2147,6 @@ void drawBodyBack() {
 	glPopMatrix();
 
 	glPushMatrix();
-	//glColor3f(1, 1, 1);
 	glTranslatef(1.6, -0.3, 0.5);
 	textures[1] = loadTexture(subTexture);
 	drawCube(0.3);
@@ -2178,7 +2155,6 @@ void drawBodyBack() {
 
 	glPushMatrix();
 	glTranslatef(2.3, -0.3, 0.5);
-	//glColor3f(1, 1, 1);
 	textures[1] = loadTexture(subTexture);
 	drawCube(0.3);
 	glDeleteTextures(1, &textures[1]);
@@ -2186,7 +2162,6 @@ void drawBodyBack() {
 
 	//cylinder
 	glPushMatrix();
-	//glColor3f(1, 1, 0);
 	glTranslatef(2.1, 3.5, 0.5);
 	glRotatef(90, 1.0, 0.0, 0.0);
 	textures[1] = loadTexture(subTexture);
@@ -2196,7 +2171,6 @@ void drawBodyBack() {
 
 	//cone
 	glPushMatrix();
-	//glColor3f(0, 0, 0);
 	glTranslatef(-0.5, 4.0, 0.5);
 	glRotatef(90, 1.0, 0.0, 0.0);
 	textures[0] = loadTexture("rocket.bmp");
@@ -2209,7 +2183,6 @@ void drawBodyBack2() {
 	//--center--
 	//trapezium
 	glPushMatrix();
-	//glColor3f(1, 0, 1);
 	glTranslatef(0.8, 1.7, 0.0);
 	glScalef(8, 8, 8);
 	
@@ -2322,7 +2295,6 @@ void drawLowerBody() {
 	glTranslatef(1.75, 0, 0);
 	textures[0] = loadTexture(subTexture);
 	glBegin(GL_TRIANGLE_FAN);
-	//glColor3f(1.0, 0.0, 0.0);
 	radius = 0.5;
 
 	for (float i = 0; i <= 360; i++) {
@@ -2346,7 +2318,6 @@ void drawLeftLeg() {
 	if (isWalking) {
 		glRotatef(UpperLegAngle, 1, 0, 0);
 	}
-	//glScalef(1.0, 1.0, 0.2);
 	glTranslatef(0.0, 0.5, 0.0);
 	glRotatef(180, 1.0, 1.0, 0.0);
 	textures[0] = loadTexture(subTexture);
@@ -2356,7 +2327,6 @@ void drawLeftLeg() {
 
 	//joint
 	glPushMatrix();
-	//glScalef(1.0, 1.0, 0.2);
 	glTranslatef(0.25, 0.15, -0.25);
 	textures[0] = loadTexture(mainTexture);
 	drawSphere(0.3);
@@ -2365,7 +2335,6 @@ void drawLeftLeg() {
 
 	//lower
 	glPushMatrix();
-	//glScalef(1.0, 1.0, 0.2);
 	if (isJumping) {
 		glRotatef(30, 1, 0, 0);
 	}
@@ -2386,7 +2355,6 @@ void drawLeftLeg() {
 	}if (isWalking) {
 		glRotatef(LowerLegAngle, 1, 0, 0);
 	}
-	//glScalef(1.5, 0.5, 0.2);
 	glTranslatef(-0.1, -2.0, -0.58);
 	textures[0] = loadTexture(mainTexture);
 	drawCube(0.7);
@@ -2433,7 +2401,6 @@ void drawRightLeg() {
 	if (isWalking) {
 		glRotatef(-UpperLegAngle, 1, 0, 0);
 	}
-	//glScalef(1.0, 1.0, 0.2);
 	glTranslatef(0.0, 0.5, 0.0);
 	glRotatef(180, 1.0, 1.0, 0.0);
 	textures[0] = loadTexture(subTexture);
@@ -2443,7 +2410,6 @@ void drawRightLeg() {
 
 	//joint
 	glPushMatrix();
-	//glScalef(1.0, 1.0, 0.2);
 	glTranslatef(0.25, 0.15, -0.25);
 	textures[0] = loadTexture(mainTexture);
 	drawSphere(0.3);
@@ -2452,7 +2418,6 @@ void drawRightLeg() {
 
 	//lower
 	glPushMatrix();
-	//glScalef(1.0, 1.0, 0.2);
 	if (isJumping) {
 		glRotatef(30, 1, 0, 0);
 	}
@@ -2474,7 +2439,6 @@ void drawRightLeg() {
 	if (isWalking) {
 		glRotatef(-LowerLegAngle, 1, 0, 0);
 	}
-	//glScalef(1.5, 0.5, 0.2);
 	glTranslatef(-0.1, -2.0, -0.58);
 	textures[0] = loadTexture(mainTexture);
 	drawCube(0.7);
@@ -2705,21 +2669,36 @@ void projection() {
 }
 void lighting() {
 	if (lightOn) {
-		
 		glEnable(GL_LIGHTING);
-		
 	}
-	else
+	else {
 		glDisable(GL_LIGHTING);
+	}	
 	
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, diff);
-	glLightfv(GL_LIGHT1, GL_POSITION, posD);
-	glPushMatrix();
-	glColor3f(1, 1, 1);
-	glTranslatef(posD[0], posD[1], posD[2]);
-	drawSphere(0.1);
-	glPopMatrix();
-	glEnable(GL_LIGHT1);
+	if(isAmbient){
+		glDisable(GL_LIGHT1);
+		glLightfv(GL_LIGHT0, GL_AMBIENT, diff);
+		glLightfv(GL_LIGHT0, GL_POSITION, ambM);
+		glPushMatrix();
+		glColor3f(1, 1, 1);
+		glTranslatef(ambM[0], ambM[1], ambM[2]);
+		drawSphere(0.1);
+		glPopMatrix();
+		glEnable(GL_LIGHT0);
+
+	}
+
+	else {
+		glDisable(GL_LIGHT0);
+		glLightfv(GL_LIGHT1, GL_DIFFUSE, diff);
+		glLightfv(GL_LIGHT1, GL_POSITION, posD);
+		glPushMatrix();
+		glColor3f(1, 1, 1);
+		glTranslatef(posD[0], posD[1], posD[2]);
+		drawSphere(0.1);
+		glPopMatrix();
+		glEnable(GL_LIGHT1);
+	}
 }
 
 void background(float size) {
@@ -2777,11 +2756,11 @@ void display()
 		glPushMatrix();{
 			if (isNod) {
 				if (control==1) {
-					glRotatef(10, 1, 0, 0);
+					glRotatef(3, 1, 0, 0);
 					control = 0;
 				}
 				else if (control == 0) {
-					glRotatef(-10, 1, 0, 0);
+					glRotatef(-3, 1, 0, 0);
 					control = 1;
 				}
 				
@@ -2809,13 +2788,13 @@ void display()
 
 			glPushMatrix();{
 				if (isWalking) {
-					if (UpperArmAngle > 20) {
-						frontMax = true;
+					if (leftUpperArmAngle > 20) {
+						leftFrontMax = true;
 					}
-					if (UpperArmAngle < -20) {
-						frontMax = false;
+					if (leftUpperArmAngle < -20) {
+						leftFrontMax = false;
 					}
-					glRotatef(UpperArmAngle, 1, 0, 0);
+					glRotatef(leftUpperArmAngle, 1, 0, 0);
 				}
 				glTranslatef(1.8, 1.7, 0.5);
 				glRotatef(45, 0.0, 0.0, -1.0);
@@ -2827,13 +2806,13 @@ void display()
 
 			glPushMatrix();{
 				if (isWalking) {
-					if (UpperArmAngle > 20) {
-						frontMax = true;
+					if (rightUpperArmAngle > 20) {
+						rightFrontMax = true;
 					}
-					if (UpperArmAngle < -20) {
-						frontMax = false;
+					if (rightUpperArmAngle < -20) {
+						rightFrontMax = false;
 					}
-					glRotatef(UpperArmAngle, 1, 0, 0);
+					glRotatef(rightUpperArmAngle, 1, 0, 0);
 				}
 				glTranslatef(-1.8, 1.7, 0.5);
 				glRotatef(45, 0.0, 0.0, 1.0);
@@ -2844,13 +2823,13 @@ void display()
 
 			glPushMatrix();{
 				if (isWalking) {
-					if (UpperArmAngle > 20) {
-						frontMax = true;
+					if (rightUpperArmAngle > 20) {
+						rightFrontMax = true;
 					}
-					if (UpperArmAngle < -20) {
-						frontMax = false;
+					if (rightUpperArmAngle < -20) {
+						rightFrontMax = false;
 					}
-					glRotatef(-UpperArmAngle, 1, 0, 0);
+					glRotatef(-rightUpperArmAngle, 1, 0, 0);
 				}
 					glTranslatef(2.1, 0.5, 0.3);
 					drawRightHand();
@@ -2889,7 +2868,6 @@ void display()
 
 		//left leg
 		glPushMatrix();{
-			//glColor3f(0, 1, 1);
 			glTranslatef(-1.0, -2.5, 0.0);
 			drawLeftLeg();
 		}
@@ -2897,7 +2875,6 @@ void display()
 
 		//right leg
 		glPushMatrix();{
-			//glColor3f(0, 0, 1);
 			glTranslatef(0.5, -2.5, 0.0);
 			drawRightLeg();
 		}
