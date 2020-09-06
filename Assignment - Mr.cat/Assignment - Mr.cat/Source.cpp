@@ -938,7 +938,7 @@ void drawSword2() {
 	glPushMatrix();
 	//textures[0] = loadTexture("metalTexture.bmp");
 	glBegin(GL_QUADS);
-	////glColor3f(0.75, 0.75, 0.75);
+	
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(0, -1, 0.125);
 	glTexCoord2f(1.0f, 1.0f);
@@ -948,7 +948,7 @@ void drawSword2() {
 	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(0, 2, 0.125);
 
-	////glColor3f(1, 1, 0);
+	
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(0, 2, 0.125);
 	glTexCoord2f(1.0f, 1.0f);
@@ -958,7 +958,7 @@ void drawSword2() {
 	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(0.25, 2, 0);
 
-	////glColor3f(0, 1, 1);
+	
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(0.25, 2, 0);
 	glTexCoord2f(1.0f, 1.0f);
@@ -968,7 +968,7 @@ void drawSword2() {
 	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(0, 2, -0.125);
 
-	////glColor3f(1, 0, 1);
+	
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(0, 2, -0.125);
 	glTexCoord2f(1.0f, 1.0f);
@@ -977,8 +977,9 @@ void drawSword2() {
 	glVertex3f(-0.25, -1, 0);
 	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(0, -1, -0.125);
-	//glDeleteTextures(1, &textures[0]);
+	
 	glEnd();
+	//glDeleteTextures(1, &textures[0]);
 	glPopMatrix();
 
 	glPushMatrix();
@@ -1015,9 +1016,9 @@ void drawSword2() {
 	glVertex3f(0, -1, -0.125);
 	glTexCoord2f(0.5, 1.0);
 	glVertex3f(0, -1.25, 0);
-	//glDeleteTextures(1, &textures[2]);
+	
 	glEnd();
-
+	//glDeleteTextures(1, &textures[2]);
 	glPopMatrix();
 }
 void drawLeftHand() {
