@@ -1644,7 +1644,7 @@ void drawRightHand() {
 			else if (choice == 2) {
 				glTranslatef(-0.25, -0.50, 0.25);
 				glRotatef(90, 1, 0, 0);
-				textures[0] = loadTexture(mainTexture);
+				textures[0] = loadTexture(subTexture);
 				drawCylinder(0.5, 2.1);
 				glDeleteTextures(1, &textures[0]);
 
